@@ -6,6 +6,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Commentaire;
+
 
 class ArticleFixtures extends Fixture
 {
@@ -13,9 +15,10 @@ class ArticleFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+        
         for($i = 1; $i <= 3; $i++) {
             $categorie=new Category();
-            $category->setContent("contenu n°$i")
+            $categorie->setContent("contenu n°$i")
                      ->setDescription("description n°$i");
 
             $manager->persist($categorie);
