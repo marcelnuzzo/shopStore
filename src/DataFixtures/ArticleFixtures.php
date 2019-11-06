@@ -16,19 +16,22 @@ class ArticleFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
         
+
+        $faker = \Faker\Factory::create();
+
         for($i = 1; $i <= 3; $i++) {
             $categorie=new Category();
-            $categorie->setContent("contenu n°$i")
-                     ->setDescription("description n°$i");
+            $categorie->setContent($faker->sentence())
+                     ->setDescription($faker->paragraph($nbSentences = 5, $variableNbSentences = true));
 
             $manager->persist($categorie);
-        
+            
             for($j=1; $j<=50; $j++) {
             
                 $article = new Article();
-                $article ->setTitle("article n°$j")
-                        ->setContent("contenu n°$j")
-                        ->setImage("http://placehold.com/350*150")
+                $article ->setTitle($faker->sentence())
+                        ->setContent($faker->paragraph($nbSentences = 5, $variableNbSentences = true))
+                        ->setImage($faker->imageUrl($width = 400, $height = 200))
                         ->setCreatedAt(new \DateTime())
                         ->setCategory($categorie);
 
