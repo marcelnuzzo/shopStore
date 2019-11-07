@@ -6,14 +6,25 @@
 
 <div class = "jumbotron">
        <article>
-            <h2>{{ article.title }}</h2>
-            <div class = "metadata"> Ecrit le {{ article.createdAt | date('d/m/Y)') }} à {{ article.createdAt | date  ('H:i') }} dans la catégorie {{ article.category.content }}
-            </div>
-             <div class = "content">
-                 <img src=" {{ article.image }} " alt="">
-                </br>
-                {{ article.content | raw}}  
-            </div>          
-       </article> 
+          <h2>{{article.title}}</h2>
+          <div class = "metadata"> Ecrit le <strong>{{ article.createdAt | date('d/m/Y)') }}</strong> à {{ article.createdAt | date  ('H:i') }} dans la catégorie {{ article.category.content }}
+          </div>
+          <div class = "content">
+               <img src=" {{ article.image }} " alt="">
+               </br>
+               {{ article.content | raw}}  
+          </div>      
+       </article>
+       </br>
+       <div>
+          <section class="commentaires">
+          {% for commentaire in article.commentaires %}
+               <div class="content">
+                    {{ commentaire.content | raw}}  
+               </div>
+          {% endfor %}
+          </section>
+       </div>
+</div>
 
 {% endblock %}

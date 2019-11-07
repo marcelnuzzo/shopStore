@@ -39,8 +39,8 @@ class ArticleFixtures extends Fixture
 
                 for($k=1; $k<=5; $k++) {
                     $comment = new Commentaire();
-                    $comment->setAuthor("auteur n°$k")
-                            ->setContent("contenu n°$k")
+                    $comment->setAuthor($faker->userName())
+                            ->setContent($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
                             ->setCreatedAt(new \DateTime())
                             ->setArticle($article);
 
