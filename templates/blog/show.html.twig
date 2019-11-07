@@ -18,13 +18,15 @@
        </br>
        <div>
           <section class="commentaires">
-          {% for commentaire in article.commentaires %}
-               <div class="content">
-                    <p>{{ commentaire.content | raw}}</p></br> 
-                    <p>{{ commentaire.author }}</p>
-                    <p><strong>{{ article.createdAt | date('d/m/Y)') }}</strong> à {{ article.createdAt | date  ('H:i') }}</p> 
-               </div>
-          {% endfor %}
+               {% for commentaire in article.commentaires %}
+                    <div class="content">
+                         <p>{{ commentaire.content | raw}}</p></br> 
+                         <p>{{ commentaire.author }}</p>
+                         <p><strong>{{ article.createdAt | date('d/m/Y)') }}</strong> à {{ article.createdAt | date  ('H:i') }}</p> 
+
+                    </div>
+                    
+               {% endfor %}
           </section>
        </div>
 </div>
