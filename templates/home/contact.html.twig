@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AccessLocation{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <div class="example-wrapper">
+        <p>Contact</p>
+        </div>
+    </div>
+    <div class="text-center">
+        <h3>{{age}} ans</h3>
+        {% if age > 18 %} 
+            <h2> La personne est majeure </h2>
+        {% else %}
+            <h2> la personne est mineure </h2>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

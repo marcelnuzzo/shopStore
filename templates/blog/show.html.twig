@@ -7,10 +7,10 @@
 <div class = "jumbotron">
        <article>
             <h2>{{ article.title }}</h2>
-            <div class = "metadata"> Ecrit le {{ article.createdAt | date('d/m/Y)') }} à {{ article.createdAt | date  ('H:i') }} 
+            <div class = "metadata"> Ecrit le {{ article.createdAt | date('d/m/Y)') }} à {{ article.createdAt | date  ('H:i') }} dans la catégorie {{ article.category.content }}
             </div>
              <div class = "content">
-                <img src="https://via.placeholder.com/300x200" alt="">
+                 <img src=" {{ article.image }} " alt="">
                 </br>
                 {{ article.content | raw}}  
             </div>          

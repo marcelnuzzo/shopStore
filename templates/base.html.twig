@@ -16,6 +16,9 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
+                        <a class="nav-link" href="{{path('apropos')}}">A propos<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ path('blog') }} ">Articles</a>
                     </li>
                      <li class="nav-item">
@@ -23,6 +26,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('blog_create') }}">Créer un article</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{path('contact')}}">Contact<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{path('admin')}}" tabindex="-1" aria-disabled="true">Admin</a>
                     </li>
                 </ul>
             </div>
