@@ -5,27 +5,48 @@
 {% block body %}
 
 <div class = "jumbotron">
-       <article>
+     <article>
           <h2>{{article.title}}</h2>
-          <div class = "metadata"> Ecrit le <strong>{{ article.createdAt | date('d/m/Y)') }}</strong> à {{ article.createdAt | date  ('H:i') }} dans la catégorie {{ article.category.content }}
+          <div class = "metadata"> Ecrit le &nbsp<strong>{{ article.createdAt | date('d/m/Y)') }}</strong>&nbsp à &nbsp{{ article.createdAt | date  ('H:i') }}&nbsp dans la catégorie &nbsp<strong>{{ article.category.content }}</strong>
           </div>
           <div class = "content">
                <img src=" {{ article.image }} " alt="">
                </br>
                {{ article.content | raw}}  
           </div>      
-       </article>
+     </article>
        </br>
        <div>
           <section class="commentaires">
-               {% for commentaire in article.commentaires %}
-                    <div class="content">
-                         <p>{{ commentaire.content | raw}}</p></br> 
-                         <p>{{ commentaire.author }}</p>
-                         <p><strong>{{ article.createdAt | date('d/m/Y)') }}</strong> à {{ article.createdAt | date  ('H:i') }}</p> 
-
+               <div class="container">
+                    <div class="row">
+                         <div class="col-3">
+                              <h3><strong style="color:blue">Auteur</strong></h3>
+                         </div>
+                         <div class="col-3">
+                              <h3><strong style="color:blue">Date</strong></h3>
+                         </div>
+                         <div class="col">
+                              <h3><strong style="color:blue">Contenu</strong></h3>
+                         </div>
                     </div>
-                    
+               </div>
+               {% for commentaire in article.commentaires %}
+               <div class="container">
+                    <div class="content">
+                         <div class="row">
+                              <div class="col-3">
+                                   {{ commentaire.author }} 
+                              </div>
+                              <div class="col-3">
+                                   <strong>{{ commentaire.createdAt | date('d/m/Y)') }}</strong> à {{ commentaire.createdAt | date  ('H:i') }}
+                              </div>
+                              <div class="col">
+                                   <p>{{ commentaire.content | raw}}</p>
+                              </div>
+                         </div>
+                    </div>
+               </div>     
                {% endfor %}
           </section>
        </div>

@@ -9,14 +9,17 @@
         {%for article in articles %}
         <article>
             <h2>{{article.title}}</h2>
-            <div class = "metadata"> Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date  ('H:i') }} dans la catégorie {{ article.category.content }}
+            <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
             </div>
             <div class = "content">
                 <img src=" {{ article.image }} " alt="">
                 </br>
                 {{ article.content | raw }}
-                <a href="{{ path('blog_show', {'id':article.id}) }}" class="btn btn-primary"> Lire la suite </a>      
-            </div>   
+                <div>
+                <a href="{{ path('blog_show', {'id':article.id}) }}" class="btn btn-primary"> Lire la suite </a> 
+                </div>     
+            </div>
+            <hr>   
         </article>
         {% endfor%}
     </section>

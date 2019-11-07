@@ -8,7 +8,6 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 
-
 class ArticleFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
@@ -16,7 +15,6 @@ class ArticleFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
         
-
         $faker = \Faker\Factory::create();
 
         for($i = 1; $i <= 3; $i++) {
