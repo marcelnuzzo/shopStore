@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories!{% endblock %}
+
+{% block body %}
+
+<div class = "jumbotron">
+    <section class='categories'>
+        {%for category in categories %}
+        <category>
+            <h3>{{category.content}}</h3>
+        </category>
+        {% endfor%}
+    </section>
+</div>
+{% endblock %}

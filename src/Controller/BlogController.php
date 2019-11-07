@@ -85,4 +85,18 @@ class BlogController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/cat", name="cat")
+     */
+    public function cat()
+    {
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+
+        $categories = $repo->findAll();
+
+        return $this->render('blog/cat.html.twig', [
+            'controller_name' => 'BlogController',
+            'categories'=> $categories
+        ]);
+    }
 }
