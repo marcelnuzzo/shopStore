@@ -22,6 +22,10 @@
             <hr>   
         </article>
         {% endfor%}
+        <div class="navigation">
+            {{ knp_pagination_render(articles) }}
+        </div>
+
     </section>
 </div>
 {% endblock %}

@@ -17,31 +17,29 @@ class ArticleFixtures extends Fixture
         
         $faker = \Faker\Factory::create();
 
-        for($i = 1; $i <= 3; $i++) {
+        for($i = 1; $i <= 5; $i++) {
             $categorie=new Category();
             $categorie->setContent($faker->sentence())
                      ->setDescription($faker->paragraph($nbSentences = 5, $variableNbSentences = true));
 
             $manager->persist($categorie);
             
-            for($j=1; $j<=50; $j++) {
+            for($j=1; $j<=10; $j++) {
             
                 $article = new Article();
                 $article ->setTitle($faker->sentence())
-                        ->setContent($faker->paragraph($nbSentences = 5, $variableNbSentences = true))
+                        ->setContent($faker->paragraph($nbSentences = 10, $variableNbSentences = true))
                         ->setImage($faker->imageUrl($width = 400, $height = 200))
-                        ->setCreatedAt($faker->dateTimeBetween('-6 months'))
+                        ->setCreatedAt(new \DateTime())
                         ->setCategory($categorie);
 
                 $manager->persist($article);
-                
-                $days = (new \DateTime())-diff($article->getCreatedAt())->days;
                
-                for($k=1; $k<=5; $k++) {
+                for($k=1; $k<=10; $k++) {
                     $comment = new Commentaire();
                     $comment->setAuthor($faker->userName())
                             ->setContent($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
-                            ->setCreatedAt($faker->dateTimeBetween('-'. $days .' days'))
+                            ->setCreatedAt(new \DateTime())
                             ->setArticle($article);
 
                     $manager->persist($comment);

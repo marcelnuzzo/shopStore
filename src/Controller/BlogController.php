@@ -13,16 +13,23 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Repository\ArticleRepository;
 
+use Knp\Component\Pager\PaginatorInterface;
+
 class BlogController extends AbstractController
 {
     /**
      * @Route("/blog", name="blog")
      */
-    public function index(ArticleRepository $repo)
+    public function index(PaginatorInterface $paginator, Request $request)
     {
-        //$repo = $this->getDoctrine()->getRepository(Article::class);
-
-        $articles = $repo->findAll();
+        
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        
+        $articles = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             5 /*limit per page*/
+        );
 
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
