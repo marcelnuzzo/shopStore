@@ -8,7 +8,11 @@
     <section class='categories'>
         {%for category in categories %}
         <category>
-            <h3>{{category.content}}</h3>
+            <ul>
+                <li>
+                    <h3>{{category.content}}</h3>
+                </li>
+            </ul>
         </category>
         {% endfor%}
     </section>

@@ -30,16 +30,18 @@ class ArticleFixtures extends Fixture
                 $article ->setTitle($faker->sentence())
                         ->setContent($faker->paragraph($nbSentences = 5, $variableNbSentences = true))
                         ->setImage($faker->imageUrl($width = 400, $height = 200))
-                        ->setCreatedAt(new \DateTime())
+                        ->setCreatedAt($faker->dateTimeBetween('-6 months'))
                         ->setCategory($categorie);
 
                 $manager->persist($article);
-
+                
+                $days = (new \DateTime())-diff($article->getCreatedAt())->days;
+               
                 for($k=1; $k<=5; $k++) {
                     $comment = new Commentaire();
                     $comment->setAuthor($faker->userName())
                             ->setContent($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
-                            ->setCreatedAt(new \DateTime())
+                            ->setCreatedAt($faker->dateTimeBetween('-'. $days .' days'))
                             ->setArticle($article);
 
                     $manager->persist($comment);
