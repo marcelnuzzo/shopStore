@@ -2,8 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Shop store{% endblock %}</title>
         <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -40,6 +43,13 @@
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                window.onscroll = function(ev) {
+                    document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+                };
+            });
+        </script>
     </body>
     <!-- Footer -->
 <footer class="page-footer font-small blue pt-4">
@@ -117,8 +127,8 @@
   <!-- Footer Links -->
 
   <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2018 Copyright:
-    <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
+  <div class="footer-copyright text-center py-3">© 2019 Copyright:
+    <a href="#"> MDBootstrap.com</a>
   </div>
   <!-- Copyright -->
 
