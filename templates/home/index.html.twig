@@ -9,7 +9,43 @@
 </style>
 <div class="jumbotron">
     <div class="example-wrapper">
-    <p>Bonjour le monde</p>
+        <h1 style="text-decoration:underline">Une liste de 15 articles</h1>
+        <div class="container-fluid">
+            <section class='articles'>
+                <div class="row">
+                    <div class="col-4">
+                        {%for article in articles | slice(0,length=5) %}
+                        <article>
+                            <h3>{{article.title}}</h3>
+                            <img src=" {{ article.image }} " alt="" width="220">
+                            <p>{{article.content}}</p>
+                            <hr>   
+                        </article>
+                        {% endfor%}
+                    </div>
+                    <div class="col-4">
+                        {%for article in articles | slice(5,length=5) %}
+                        <article>
+                            <h3>{{article.title}}</h3>
+                            <img src=" {{ article.image }} " alt=""  width="220">
+                            <p>{{article.content}}</p>
+                            <hr>   
+                        </article>
+                        {% endfor%}
+                    </div>
+                    <div class="col-4">
+                        {%for article in articles | slice(10,length=5) %}
+                        <article>
+                            <h3>{{article.title}}</h3>
+                            <img src=" {{ article.image }} " alt=""  width="220">
+                            <p>{{article.content}}</p>
+                            <hr>   
+                        </article>
+                        {% endfor%}
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
 {% endblock %}

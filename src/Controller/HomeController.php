@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Article;
 
 class HomeController extends AbstractController
 {
@@ -13,8 +14,11 @@ class HomeController extends AbstractController
      */
     public function index()
     {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'articles'=> $articles
         ]);
     }
 
