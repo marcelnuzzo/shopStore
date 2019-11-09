@@ -3,47 +3,12 @@
 {% block title %}AccessLocation{% endblock %}
 
 {% block body %}
-<!--
+
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
--->
-<style>
-a#cRetour{
-  border-radius:3px;
-  padding:10px;
-  font-size:15px;
-  text-align:center;
-  color:blue;
-  background:rgba(0, 0, 0, 0.25);
-  position:fixed;
-  right:20px;
-  opacity:1;
-  z-index:99999;
-  transition:all ease-in 0.2s;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  text-decoration: none;
-}
-a#cRetour:before{ content: "\25b2"; }
-a#cRetour:hover{
-  background:rgba(0, 0, 0, 1);
-  transition:all ease-in 0.2s;
-}
-a#cRetour.cInvisible{
-  bottom:-35px;
-  opacity:0;
-  transition:all ease-in 0.5s;
-}
-
-a#cRetour.cVisible{
-  bottom:20px;
-  opacity:1;
-}
-</style>
 <div class="jumbotron">
-    
     <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
     <div class="example-wrapper">
         <h1  id="haut" style="text-decoration:underline;color:blue;text-align:center">Une liste de 15 articles</h1>
