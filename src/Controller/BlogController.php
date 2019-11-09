@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Commentaire;
 use App\Repository\ArticleRepository;
 
 use Knp\Component\Pager\PaginatorInterface;
@@ -104,6 +105,21 @@ class BlogController extends AbstractController
         return $this->render('blog/cat.html.twig', [
             'controller_name' => 'BlogController',
             'categories'=> $categories
+        ]);
+    }
+
+    /**
+     * @Route("/comment", name="comment")
+     */
+    public function comment()
+    {
+        $repo = $this->getDoctrine()->getRepository(Commentaire::class);
+
+        $commentaires = $repo->findAll();
+
+        return $this->render('blog/comment.html.twig', [
+            'controller_name' => 'BlogController',
+            'commentaires'=> $commentaires
         ]);
     }
 }

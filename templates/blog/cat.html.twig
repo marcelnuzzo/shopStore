@@ -5,6 +5,8 @@
 {% block body %}
 
 <div class = "jumbotron">
+    <h1 style="text-align:center"><mark>Les catégories</mark></h1>
+    </br>
     <section class='categories'>
         {%for category in categories %}
         <category>
@@ -15,6 +17,7 @@
                 </li>
             </ul>
         </category>
+        <hr>
         {% endfor%}
     </section>
 </div>

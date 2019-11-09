@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des commentaires!{% endblock %}
+
+{% block body %}
+
+<div class = "jumbotron">
+    <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
+    <section class='commentaires'>
+    <h1 id="haut" style="text-decoration:underline;color:blue;text-align:center">Une liste de 15 commentaires</h1>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    {%for commentaire in commentaires | slice(0,length=5) %}
+                    <commentaire>
+                        <h3>{{commentaire.author}}</h3>
+                        <p>{{ commentaire.content }}</p>        
+                        <p>{{ commentaire.createdAt  | date('d/m/Y, H:i') }}</p>
+                        <p>{{ commentaire.article.title }}</p>
+                    </commentaire>
+                    {% endfor%}
+                </div>
+                <div class="col-4">
+                    {%for commentaire in commentaires | slice(5,length=5) %}
+                    <commentaire>
+                        <h3>{{commentaire.author}}</h3>
+                        <p>{{ commentaire.content }}</p>        
+                        <p>{{ commentaire.createdAt  | date('d/m/Y, H:i') }}</p>
+                        <p>{{ commentaire.article.title }}</p>
+                    </commentaire>
+                    {% endfor%}
+                </div>
+                <div class="col-4">
+                    {%for commentaire in commentaires | slice(10,length=5) %}
+                    <commentaire>
+                        <h3>{{commentaire.author}}</h3>
+                        <p>{{ commentaire.content }}</p>        
+                        <p>{{ commentaire.createdAt  | date('d/m/Y, H:i') }}</p>
+                        <p>{{ commentaire.article.title }}</p>
+                    </commentaire>
+                    {% endfor%}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
