@@ -5,8 +5,10 @@
 {% block body %}
 
 <div class = "jumbotron">
-    <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
+   
     <section class='articles'>
+     <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
+     <h1  id="haut" style="text-decoration:underline;color:blue;text-align:center">Liste des articles</h1>
         {%for article in articles %}
         <article>
             <h2>{{article.title}}</h2>
@@ -26,7 +28,13 @@
         <div class="navigation">
             {{ knp_pagination_render(articles) }}
         </div>
-
+         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                window.onscroll = function(ev) {
+                    document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+                };
+            });
+        </script>
     </section>
 </div>
 {% endblock %}
