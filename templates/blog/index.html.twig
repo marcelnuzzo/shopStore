@@ -11,7 +11,7 @@
         <section class='articles'>
             <div class="row">
                 <div class="col-4">
-                    {%for article in articles %}
+                    {%for article in articles | slice(0,length=5) %}
                     <article>
                         <h2>{{article.title}}</h2>
                         <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
@@ -29,7 +29,7 @@
                     {% endfor%}
                 </div>
                 <div class="col-4">
-                    {%for article in articles %}
+                    {%for article in articles | slice(5,length=5) %}
                     <article>
                         <h2>{{article.title}}</h2>
                         <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
@@ -47,7 +47,7 @@
                     {% endfor%}
                 </div>
                 <div class="col-4">
-                    {%for article in articles %}
+                    {%for article in articles | slice(10,length=5) %}
                     <article>
                         <h2>{{article.title}}</h2>
                         <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
@@ -78,6 +78,4 @@
                 };
             });
         </script>
-    </section>
-</div>
 {% endblock %}

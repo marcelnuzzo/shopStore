@@ -20,7 +20,7 @@
                         <article>
                             <h3>{{article.title}}</h3>
                             <img src=" {{ article.image }} " alt="" width="220">
-                            <p>{{article.content}}</p>
+                            <p>{{article.content }}</p>
                             <hr>   
                         </article>
                         {% endfor%}
@@ -30,7 +30,7 @@
                         <article>
                             <h3>{{article.title}}</h3>
                             <img src=" {{ article.image }} " alt=""  width="220">
-                            <p>{{article.content}}</p>
+                            <p>{{article.content }}</p>
                             <hr>   
                         </article>
                         {% endfor%}
@@ -40,7 +40,7 @@
                         <article>
                             <h3>{{article.title}}</h3>
                             <img src=" {{ article.image }} " alt=""  width="220">
-                            <p>{{article.content}}</p>
+                            <p>{{article.content }}</p>
                             <hr>   
                         </article>
                         {% endfor%}
@@ -50,4 +50,14 @@
         </div>
     </div>
 </div>
+<div class="navigation">
+            {{ knp_pagination_render(articles) }}
+        </div>
+         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                window.onscroll = function(ev) {
+                    document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+                };
+            });
+        </script>
 {% endblock %}
