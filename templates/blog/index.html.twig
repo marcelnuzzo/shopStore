@@ -5,26 +5,69 @@
 {% block body %}
 
 <div class = "jumbotron">
-   
-    <section class='articles'>
-     <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
+        <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
     <h1 id="haut" style="text-decoration:underline;color:blue;text-align:center">Liste des articles</h1>
-        {%for article in articles %}
-        <article>
-            <h2>{{article.title}}</h2>
-            <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
+   <div class="container-fluid">
+        <section class='articles'>
+            <div class="row">
+                <div class="col-4">
+                    {%for article in articles %}
+                    <article>
+                        <h2>{{article.title}}</h2>
+                        <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
+                        </div>
+                        <div class = "content">
+                            <img src=" {{ article.image }} " alt="" width="220">
+                            </br>
+                            {{ article.content | raw }}
+                            <div>
+                            <a href="{{ path('blog_show', {'id':article.id}) }}" class="btn btn-primary"> Lire la suite </a> 
+                            </div>     
+                        </div>
+                        <hr>   
+                    </article>
+                    {% endfor%}
+                </div>
+                <div class="col-4">
+                    {%for article in articles %}
+                    <article>
+                        <h2>{{article.title}}</h2>
+                        <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
+                        </div>
+                        <div class = "content">
+                            <img src=" {{ article.image }} " alt="" width="220">
+                            </br>
+                            {{ article.content | raw }}
+                            <div>
+                            <a href="{{ path('blog_show', {'id':article.id}) }}" class="btn btn-primary"> Lire la suite </a> 
+                            </div>     
+                        </div>
+                        <hr>   
+                    </article>
+                    {% endfor%}
+                </div>
+                <div class="col-4">
+                    {%for article in articles %}
+                    <article>
+                        <h2>{{article.title}}</h2>
+                        <div class = "metadata"> Ecrit le <strong style="color:blue">{{ article.createdAt | date('d/m/Y') }}</strong style="color:blue"> à <strong style="color:blue">{{ article.createdAt | date  ('H:i') }}</strong> dans la catégorie <strong style="color:blue">{{ article.category.content }}</strong>
+                        </div>
+                        <div class = "content">
+                            <img src=" {{ article.image }} " alt="" width="220">
+                            </br>
+                            {{ article.content | raw }}
+                            <div>
+                            <a href="{{ path('blog_show', {'id':article.id}) }}" class="btn btn-primary"> Lire la suite </a> 
+                            </div>     
+                        </div>
+                        <hr>   
+                    </article>
+                    {% endfor%}
+                </div>
             </div>
-            <div class = "content">
-                <img src=" {{ article.image }} " alt="">
-                </br>
-                {{ article.content | raw }}
-                <div>
-                <a href="{{ path('blog_show', {'id':article.id}) }}" class="btn btn-primary"> Lire la suite </a> 
-                </div>     
-            </div>
-            <hr>   
-        </article>
-        {% endfor%}
+        </section>
+    </div>
+</div>
         <div class="navigation">
             {{ knp_pagination_render(articles) }}
         </div>
