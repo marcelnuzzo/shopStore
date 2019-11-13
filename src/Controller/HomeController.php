@@ -51,7 +51,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     *  @Route("/admin/admin", name="admin")
+     *  @Route("/admin", name="admin")
     */
     public function admin()
     {
