@@ -56,6 +56,11 @@ class Utilisateur
      */
     private $fin_de_location;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mail;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +158,18 @@ class Utilisateur
     public function setFinDeLocation(int $fin_de_location): self
     {
         $this->fin_de_location = $fin_de_location;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): self
+    {
+        $this->mail = $mail;
 
         return $this;
     }

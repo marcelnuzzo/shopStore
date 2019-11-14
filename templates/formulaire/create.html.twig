@@ -1,15 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
+{% form_theme formCategory 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
     <div class="jumbotron" style="background-color:DeepSkyBlue">
-
-        {{ form_start(formUtilisateur) }}
-
-        {{ form_row(formUtilisateur.nom, {'attr': {'placeholder': "nom de l'utilisateur"}}) }}
-
-        {{ form_end(formUtilisateur) }}
-
+    {% if editMode %}
+        <h1 style ="text-align:center">Modification de la catégorie</h1>                
+    {% else %}
+        <h1 style ="text-align:center">Création d'une catégorie</h1>
     </div>
+    {% endif %}
+        {{ form_start(formCategory) }}
+
+        {{ form_row(formCategory.content, {'attr': {'placeholder': "Nom de la catégorie"}}) }}
+        {{ form_row(formCategory.description, {'attr': {'placeholder': "Description de la catégorie"}}) }}
+
+        <button type="submit" class="btn btn-success">
+            {% if editMode %}
+                Modifier
+            {% else %}
+                Ajouter
+            {% endif %}
+        </button>
+        
+        {{ form_end(formCategory) }}
+    
 {% endblock %}
