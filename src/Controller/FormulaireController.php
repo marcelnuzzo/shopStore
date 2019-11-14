@@ -31,11 +31,13 @@ class FormulaireController extends AbstractController
     
     /**
     * @Route("/formulaire/new", name="formulaire_create")
+    * @Route("/formulaire/{id}/edit", name="formulaire_edit")
     */
-    /*
-    public function formulaire(Request $request, ObjectManager $manager)
+    public function formulaire(Request $request, ObjectManager $manager, Utilisateur $utilisateur = null)
     {
-        $utilisateur = new Utilisateur();
+        if(!$utilisateur) {
+            $utilisateur = new Utilisateur();
+        }
 
         $form = $this->createFormBuilder($utilisateur)
                      ->add('prenom')
@@ -51,25 +53,29 @@ class FormulaireController extends AbstractController
                      ->getForm();
                      
            
+                $form->handleRequest($request);
+               
+                if($form->isSubmitted() && $form->isValid()) {
+                    
+                    $manager->persist($utilisateur);
+                    $manager->flush();
             
-                     //$form->handleRequest($request);
-                //CreateView();
-                $manager->persist($utilisateur);
-            $manager->flush();
-
-            return $this->redirectToRoute('contact');
+                        return $this->redirectToRoute('contact');
+                }
 
             return $this->render('formulaire/create.html.twig', [
-                'formUtilisateur' => $form->createView()]);
-        
+                'formUtilisateur' => $form->createView(),
+                'editMode' => $utilisateur->getId() !== null
+                ]);
       
     }
-    */
+    
 
    /**
     * @Route("/formulaire/new", name="formulaire_create")
     * @Route("/formulaire/{id}/edit", name="formulaire_edit")
     */
+    /*
     public function form(Request $request, ObjectManager $manager, Category $category = null)
     {
         if(!$category) {
@@ -97,4 +103,5 @@ class FormulaireController extends AbstractController
                      ]);
     
     }
+    */
 }

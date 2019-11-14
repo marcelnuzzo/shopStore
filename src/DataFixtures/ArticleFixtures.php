@@ -28,7 +28,7 @@ class ArticleFixtures extends Fixture
             
                 $article = new Article();
                 $article ->setTitle($faker->sentence())
-                        ->setContent($faker->realText($maxNbChars = 200, $indexSize = 2))
+                        ->setContent($faker->realText($maxNbChars = 100, $indexSize = 2))
                         ->setImage($faker->imageUrl($width = 400, $height = 200))
                         ->setCreatedAt($faker->dateTimeBetween($startDate = '-3days', $endDate = 'now', $timezone = null))
                         ->setCategory($categorie);
