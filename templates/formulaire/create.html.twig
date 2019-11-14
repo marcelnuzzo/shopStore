@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron" style="background-color:DeepSkyBlue">
+
+        {{ form_start(formUtilisateur) }}
+
+        {{ form_row(formUtilisateur.nom, {'attr': {'placeholder': "nom de l'utilisateur"}}) }}
+
+        {{ form_end(formUtilisateur) }}
+
+    </div>
+{% endblock %}

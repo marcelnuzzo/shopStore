@@ -8,11 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -50,10 +53,11 @@ class BlogController extends AbstractController
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
      */
-    public function form(Article $article = null,Request $request, ObjectManager $manager)
+    public function form(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
     {
         if(!$article) {
             $article = new Article();
+            $category = new Category();
         }
        
         $form = $this->createFormBuilder($article)
@@ -63,6 +67,12 @@ class BlogController extends AbstractController
                      ->getForm();
 
         $form->handleRequest($request);
+
+        $form2 = $this->createFormBuilder($category)
+                     ->add('content')
+                     ->getForm();
+
+        $form2->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             if(!$article->getId()) {
@@ -76,6 +86,7 @@ class BlogController extends AbstractController
 
         return $this->render("blog/create.html.twig", [
             'formArticle' => $form->createView(),
+            'formCategory' => $form2->createView(),
             'editMode' => $article->getId() !== null
         ]);
     }
