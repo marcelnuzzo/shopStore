@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formCommentaire 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron" style="background-color:DeepSkyBlue">
+    {% if editMode %}
+        <h1 style ="text-align:center">Modification du commentaire</h1>                
+    {% else %}
+        <h1 style ="text-align:center">Création d'un commentaire</h1>
+    {% endif %}
+    </div>
+
+    {{ form_start(formCommentaire) }}
+    
+    {{ form_row(formCommentaire.author, {'attr': {'placeholder': "Auteur du commentaire"}}) }}
+    {{ form_row(formCommentaire.content, {'attr': {'placeholder': "Contenu du commentaire"}}) }}
+    {{ form_row(formCommentaire.createdAt, {'attr': {'placeholder': "Date de création du commentaire"}}) }}
+    
+    <button type="submit" class="btn btn-success">
+    {% if editMode %}
+        Modifier
+    {% else %}
+        Ajouter la catégorie
+    {% endif %}
+    </button>
+    
+    {{ form_end(formCommentaire) }}
+    
+   
+{% endblock %}

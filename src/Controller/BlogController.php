@@ -2,22 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
-
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
@@ -57,7 +58,7 @@ class BlogController extends AbstractController
     {
         if(!$article) {
             $article = new Article();
-            $category = new Category();
+            //$category = new Category();
         }
        
         $form = $this->createFormBuilder($article)
@@ -66,19 +67,15 @@ class BlogController extends AbstractController
                      ->add('image')
                      ->getForm();
 
-        $form->handleRequest($request);
-
-        $form2 = $this->createFormBuilder($category)
-                     ->add('content')
-                     ->getForm();
-
-        $form2->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
+        
+            $form->handleRequest($request);
+       
+        if($form->isSubmitted() && $form->isValid() && $form2->isSubmitted() && $form2->isValid()) {
             if(!$article->getId()) {
                 $article->setCreatedAt(new \DateTime());
             }
             $manager->persist($article);
+            //$manager->persist($category);
             $manager->flush();
 
             return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
@@ -86,7 +83,6 @@ class BlogController extends AbstractController
 
         return $this->render("blog/create.html.twig", [
             'formArticle' => $form->createView(),
-            'formCategory' => $form2->createView(),
             'editMode' => $article->getId() !== null
         ]);
     }

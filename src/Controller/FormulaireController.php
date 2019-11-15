@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -72,11 +73,11 @@ class FormulaireController extends AbstractController
     
 
    /**
-    * @Route("/formulaire/new", name="formulaire_create")
+    * @Route("/formulaire/newCat", name="formulaire_createCat")
     * @Route("/formulaire/{id}/edit", name="formulaire_edit")
     */
-    /*
-    public function form(Request $request, ObjectManager $manager, Category $category = null)
+    
+    public function formulaireCat(Request $request, ObjectManager $manager, Category $category = null)
     {
         if(!$category) {
             $category = new Category();
@@ -94,14 +95,48 @@ class FormulaireController extends AbstractController
                     $manager->persist($category);
                     $manager->flush();
             
-                        return $this->redirectToRoute('contact');
+                        return $this->redirectToRoute('cat');
                 }
 
-                return $this->render('formulaire/create.html.twig', [
+                return $this->render('formulaire/createCat.html.twig', [
                      'formCategory' => $form->createView(),
                      'editMode' => $category->getId() !== null
                      ]);
     
     }
+
+    /**
+    * @Route("/formulaire/newCom", name="formulaire_createCom")
+    * @Route("/formulaire/{id}/edit", name="formulaire_edit")
     */
+    
+    public function formulaireCom(Request $request, ObjectManager $manager, Commentaire $commentaire = null)
+    {
+        if(!$commentaire) {
+            $commentaire = new Commentaire();
+        }
+    
+        $form = $this->createFormBuilder($commentaire)
+                     ->add('author')
+                     ->add('content')
+                     ->add('createdAt')
+                     ->getForm();
+
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    
+                    $manager->persist($commentaire);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('commentaire');
+                }
+
+                return $this->render('formulaire/createCom.html.twig', [
+                     'formCommentaire' => $form->createView(),
+                     'editMode' => $commentaire->getId() !== null
+                     ]);
+    
+    }
+    
 }
