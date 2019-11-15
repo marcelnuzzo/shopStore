@@ -16,8 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
@@ -58,7 +59,7 @@ class BlogController extends AbstractController
     {
         if(!$article) {
             $article = new Article();
-            //$category = new Category();
+            $category = new Category();
         }
        
         $form = $this->createFormBuilder($article)
@@ -70,7 +71,8 @@ class BlogController extends AbstractController
         
             $form->handleRequest($request);
        
-        if($form->isSubmitted() && $form->isValid() && $form2->isSubmitted() && $form2->isValid()) {
+        
+        if($form->isSubmitted() && $form->isValid()) {
             if(!$article->getId()) {
                 $article->setCreatedAt(new \DateTime());
             }

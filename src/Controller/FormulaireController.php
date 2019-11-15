@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class FormulaireController extends AbstractController
@@ -119,7 +120,7 @@ class FormulaireController extends AbstractController
         $form = $this->createFormBuilder($commentaire)
                      ->add('author')
                      ->add('content')
-                     ->add('createdAt')
+                     ->add('createdAt', DateType::class)
                      ->getForm();
 
                 $form->handleRequest($request);
