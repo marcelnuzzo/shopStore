@@ -35,7 +35,7 @@ class FormulaireController extends AbstractController
     
     /**
     * @Route("/formulaire/new", name="formulaire_create")
-    * @Route("/formulaire/{id}/edit", name="formulaire_edit")
+    * @Route("/formulaire/{id}/editUti", name="formulaire_editUti")
     */
     public function formulaire(Request $request, ObjectManager $manager, Utilisateur $utilisateur = null)
     {
@@ -77,7 +77,7 @@ class FormulaireController extends AbstractController
 
    /**
     * @Route("/formulaire/newCat", name="formulaire_createCat")
-    * @Route("/formulaire/{id}/edit", name="formulaire_edit")
+    * @Route("/formulaire/{id}/editCat", name="formulaire_editCat")
     */
     
     public function formulaireCat(Request $request, ObjectManager $manager, Category $category = null)
@@ -111,7 +111,7 @@ class FormulaireController extends AbstractController
 
     /**
     * @Route("/formulaire/newCom", name="formulaire_createCom")
-    * @Route("/formulaire/{id}/edit", name="formulaire_edit")
+    * @Route("/formulaire/{id}/editCom", name="formulaire_editCom")
     */
     public function formulaireCom(Article $article = null, Request $request, ObjectManager $manager, Commentaire $commentaire = null)
     {
@@ -137,7 +137,7 @@ class FormulaireController extends AbstractController
                     $manager->persist($commentaire);
                     $manager->flush();
             
-                        return $this->redirectToRoute('commentaire');
+                        return $this->redirectToRoute('comment');
                 }
 
                 return $this->render('formulaire/createCom.html.twig', [
