@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class FormulaireController extends AbstractController
@@ -62,7 +64,7 @@ class FormulaireController extends AbstractController
                     $manager->persist($utilisateur);
                     $manager->flush();
             
-                        return $this->redirectToRoute('contact');
+                        return $this->redirectToRoute('uti');
                 }
 
             return $this->render('formulaire/create.html.twig', [
@@ -85,6 +87,7 @@ class FormulaireController extends AbstractController
         }
     
         $form = $this->createFormBuilder($category)
+                     ->add('title')
                      ->add('content')
                      ->add('description')
                      ->getForm();
@@ -110,17 +113,21 @@ class FormulaireController extends AbstractController
     * @Route("/formulaire/newCom", name="formulaire_createCom")
     * @Route("/formulaire/{id}/edit", name="formulaire_edit")
     */
-    
-    public function formulaireCom(Request $request, ObjectManager $manager, Commentaire $commentaire = null)
+    public function formulaireCom(Article $article = null, Request $request, ObjectManager $manager, Commentaire $commentaire = null)
     {
         if(!$commentaire) {
             $commentaire = new Commentaire();
+            $article = new Article();
         }
     
         $form = $this->createFormBuilder($commentaire)
                      ->add('author')
                      ->add('content')
                      ->add('createdAt', DateType::class)
+                     ->add('article', EntityType::class, [
+                        'class' => Article::class,
+                        "choice_label" => 'title'
+                    ])
                      ->getForm();
 
                 $form->handleRequest($request);

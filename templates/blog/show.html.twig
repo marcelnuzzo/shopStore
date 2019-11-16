@@ -15,11 +15,12 @@
                {{ article.content | raw}}  
           </div>      
      </article>
-       </br>
+       </br>   
        <div>
           <section class="commentaires">
                <div class="container">
                     <div class="row">
+                    
                          <div class="col-3">
                               <h3><strong style="color:blue">Auteur</strong></h3>
                          </div>
@@ -29,6 +30,7 @@
                          <div class="col">
                               <h3><strong style="color:blue">Commentaire</strong></h3>
                          </div>
+                   
                     </div>
                </div>
                {% for commentaire in article.commentaires %}
@@ -51,6 +53,7 @@
                {% endfor %}
           </section>
        </div>
+       
 </div>
 
 {% endblock %}

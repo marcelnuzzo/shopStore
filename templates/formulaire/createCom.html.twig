@@ -16,7 +16,8 @@
     {{ form_row(formCommentaire.author, {'attr': {'placeholder': "Auteur du commentaire"}}) }}
     {{ form_row(formCommentaire.content, {'attr': {'placeholder': "Contenu du commentaire"}}) }}
     {{ form_row(formCommentaire.createdAt, {'attr': {'placeholder': "Date de création du commentaire"}}) }}
-    
+    {{ form_row(formCommentaire.article) }}
+
     <button type="submit" class="btn btn-success">
     {% if editMode %}
         Modifier

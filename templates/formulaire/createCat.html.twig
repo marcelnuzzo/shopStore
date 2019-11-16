@@ -12,7 +12,8 @@
     </div>
 
     {{ form_start(formCategory) }}
-    
+
+    {{ form_row(formCategory.title, {'attr': {'placeholder': "Titre de la catégorie"}}) }}
     {{ form_row(formCategory.content, {'attr': {'placeholder': "Contenu de la catégorie"}}) }}
     {{ form_row(formCategory.description, {'attr': {'placeholder': "description de la catégorie"}}) }}
     

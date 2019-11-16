@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
+use App\Entity\Utilisateur;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -75,7 +76,8 @@ class BlogController extends AbstractController
             //$manager->persist($category);
             $manager->flush();
 
-            return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
+            return $this->redirectToRoute('blog_show', ['id' => $article->getId()
+            ]);
         }
 
         return $this->render("blog/create.html.twig", [
@@ -124,6 +126,21 @@ class BlogController extends AbstractController
         return $this->render('blog/comment.html.twig', [
             'controller_name' => 'BlogController',
             'commentaires'=> $commentaires
+        ]);
+    }
+
+    /**
+     * @Route("/uti", name="uti")
+     */
+    public function uti()
+    {
+        $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
+
+        $utilisateur = $repo->findAll();
+
+        return $this->render('blog/uti.html.twig', [
+            'controller_name' => 'BlogController',
+            'utilisateurs'=> $utilisateur
         ]);
     }
 }

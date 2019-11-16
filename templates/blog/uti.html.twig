@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs!{% endblock %}
+
+{% block body %}
+
+<div class = "jumbotron">
+    <h1 style="text-align:center"><mark>Les utilisateurs</mark></h1>
+    </br>
+    <section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                {%for utilisateur in utilisateurs %}
+                    <ul>
+                        <li>
+                            <p>nom&nbsp:&nbsp{{ utilisateur.nom }}</p>
+                        </li>
+                        <li>
+                            <p>prénom&nbsp:&nbsp{{utilisateur.prenom}}</p>
+                        </li>
+                        <li>
+                            <p>login&nbsp:&nbsp{{ utilisateur.login }}</p>
+                        </li>
+                    </ul>
+                <hr>
+                {% endfor%}
+            </div>
+            <div class="col-4">
+                {%for utilisateur in utilisateurs %}
+                    <ul>
+                        <li>
+                            <p>date de naissance&nbsp:&nbsp{{ utilisateur.DateDeNaissance }}</p>
+                        </li>
+                        <li>
+                            <p>durée&nbsp:&nbsp{{utilisateur.duree}}</p>
+                        </li>
+                        <li>
+                            <p>date de location&nbsp:&nbsp{{ utilisateur.DateDeLocation }}</p>
+                        </li>
+                    </ul>
+                <hr>
+                {% endfor%}
+            </div>
+            <div class="col-4">
+                {%for utilisateur in utilisateurs %}
+                    <ul>
+                        <li>
+                            <p>fin de location&nbsp:&nbsp{{ utilisateur.FinDeLocation }}</p>
+                        </li>
+                        <li>
+                            <p>mail&nbsp:&nbsp{{utilisateur.mail}}</p>
+                        </li>
+                         <li>
+                            <p>id&nbsp:&nbsp{{ utilisateur.id }}</p>
+                        </li>
+                    </ul>
+                <hr>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+{% endblock %}
