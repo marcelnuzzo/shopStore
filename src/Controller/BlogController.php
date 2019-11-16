@@ -5,21 +5,12 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
-use App\Repository\ArticleRepository;
-use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class BlogController extends AbstractController
 {
@@ -66,6 +57,10 @@ class BlogController extends AbstractController
                      ->add('title')
                      ->add('content')
                      ->add('image')
+                     ->add('category', EntityType::class, [
+                        'class' => Category::class,
+                        "choice_label" => 'title'
+                    ])
                      ->getForm();
 
         

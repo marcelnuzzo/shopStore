@@ -20,6 +20,7 @@ class ArticleFixtures extends Fixture
         for($i = 1; $i <= 5; $i++) {
             $categorie=new Category();
             $categorie->setContent($faker->sentence())
+                     ->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
                      ->setDescription($faker->paragraph($nbSentences = 5, $variableNbSentences = true));
 
             $manager->persist($categorie);

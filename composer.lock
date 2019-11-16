@@ -76,16 +76,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "c15dcd24b756f9e52ea7c3ae8227354f3628f11a"
+                "reference": "89a5c76c39c292f7798f964ab3c836c3f8192a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/c15dcd24b756f9e52ea7c3ae8227354f3628f11a",
-                "reference": "c15dcd24b756f9e52ea7c3ae8227354f3628f11a",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/89a5c76c39c292f7798f964ab3c836c3f8192a55",
+                "reference": "89a5c76c39c292f7798f964ab3c836c3f8192a55",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "riak",
                 "xcache"
             ],
-            "time": "2019-11-11T10:31:52+00:00"
+            "time": "2019-11-15T14:31:57+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -1557,18 +1557,6 @@
         },
         {
             "name": "ocramius/package-versions",
-<<<<<<< HEAD
-            "version": "1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Ocramius/PackageVersions.git",
-                "reference": "7ca61c24dc301cc9d47d6fb459b3d39f2d54b7e5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/7ca61c24dc301cc9d47d6fb459b3d39f2d54b7e5",
-                "reference": "7ca61c24dc301cc9d47d6fb459b3d39f2d54b7e5",
-=======
             "version": "1.5.1",
             "source": {
                 "type": "git",
@@ -1579,7 +1567,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/Ocramius/PackageVersions/zipball/1d32342b8c1eb27353c8887c366147b4c2da673c",
                 "reference": "1d32342b8c1eb27353c8887c366147b4c2da673c",
->>>>>>> 29321d4742153bc109dd01aedb0680627cb97b95
                 "shasum": ""
             },
             "require": {
@@ -1590,14 +1577,9 @@
                 "composer/composer": "^1.8.6",
                 "doctrine/coding-standard": "^6.0.0",
                 "ext-zip": "*",
-<<<<<<< HEAD
-                "infection/infection": "^0.7.1",
-                "phpunit/phpunit": "^7.5.17"
-=======
                 "infection/infection": "^0.13.4",
                 "phpunit/phpunit": "^8.2.5",
                 "vimeo/psalm": "^3.4.9"
->>>>>>> 29321d4742153bc109dd01aedb0680627cb97b95
             },
             "type": "composer-plugin",
             "extra": {
@@ -1622,11 +1604,7 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-<<<<<<< HEAD
-            "time": "2019-11-14T14:22:47+00:00"
-=======
             "time": "2019-07-17T15:49:50+00:00"
->>>>>>> 29321d4742153bc109dd01aedb0680627cb97b95
         },
         {
             "name": "ocramius/proxy-manager",
@@ -6363,16 +6341,16 @@
         },
         {
             "name": "knplabs/knp-paginator-bundle",
-            "version": "v4.0.0",
+            "version": "v4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpPaginatorBundle.git",
-                "reference": "865781b323739c688daaec540f9905704cec51ef"
+                "reference": "0e3cc11323f112470022d462c9e6718fd01c7e88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/865781b323739c688daaec540f9905704cec51ef",
-                "reference": "865781b323739c688daaec540f9905704cec51ef",
+                "url": "https://api.github.com/repos/KnpLabs/KnpPaginatorBundle/zipball/0e3cc11323f112470022d462c9e6718fd01c7e88",
+                "reference": "0e3cc11323f112470022d462c9e6718fd01c7e88",
                 "shasum": ""
             },
             "require": {
@@ -6422,7 +6400,7 @@
                 "paginator",
                 "symfony"
             ],
-            "time": "2019-06-27T07:23:50+00:00"
+            "time": "2019-09-25T06:52:38+00:00"
         },
         {
             "name": "nikic/php-parser",
