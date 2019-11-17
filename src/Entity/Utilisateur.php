@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 //use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
+ * @UniqueEntity("mail")
  */
 class Utilisateur
 {
@@ -20,6 +22,11 @@ class Utilisateur
 
     /**
      * @ORM\Column(type="string", length=255)
+     *@Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Your name cannot contain a number"
+     * )
      */
     private $nom;
 
@@ -61,11 +68,8 @@ class Utilisateur
     private $fin_de_location;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *  @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email.",
-     *     checkMX = true
-     *    )
+     * @ORM\Column(name="mail", type="string", length=255, unique=true)
+     * @Assert\Email
      */
     private $mail;
 

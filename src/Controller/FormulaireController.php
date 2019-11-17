@@ -11,8 +11,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 class FormulaireController extends AbstractController
 {
@@ -49,7 +49,7 @@ class FormulaireController extends AbstractController
                      ->add('date_de_naissance')
                      ->add('mail')
                      ->add('login')
-                     ->add('mot_de_passe')
+                     ->add('mot_de_passe', PasswordType::class)
                      ->add('date_de_location')
                      ->add('duree')
                      ->add('fin_de_location')

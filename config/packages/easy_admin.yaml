@@ -4,4 +4,4 @@ easy_admin:
          - App\Entity\Article
          - App\Entity\Category
          - App\Entity\Commentaire
-#        - App\Entity\User
+         - App\Entity\Utilisateur
