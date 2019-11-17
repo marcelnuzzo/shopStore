@@ -13,12 +13,13 @@
                <img src=" {{ article.image }} " alt="">
                </br>
                {{ article.content | raw}}  
-          </div>      
+          </div>     
      </article>
        </br>   
        <div>
           <section class="commentaires">
                <div class="container">
+               <h1 style="text-align:center;background-color:yellow">{{ article.commentaires | length }} commentaires :</h1> 
                     <div class="row">
                     
                          <div class="col-3">
