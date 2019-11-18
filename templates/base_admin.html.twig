@@ -21,16 +21,16 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Articles</a>
+                        <a class="nav-link" href="{{ path('index_article') }} ">Articles</a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="#">Catégories</a>
+                        <a class="nav-link" href="{{ path('index_categorie') }} ">Catégories</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('index_commentaire') }} ">Commentaires</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Commentaires</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Utilisateurs</a>
+                        <a class="nav-link" href="{{ path('index_utilisateur') }} ">Utilisateurs</a>
                     </li>
                 </ul>
             </div>
