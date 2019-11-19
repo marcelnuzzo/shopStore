@@ -64,12 +64,13 @@ class Utilisateur
 
     /**
      * @ORM\Column(type="integer")
+     * 
      */
     private $fin_de_location;
 
     /**
      * @ORM\Column(name="mail", type="string", length=255, unique=true)
-     * @Assert\Email
+     * 
      */
     private $mail;
 

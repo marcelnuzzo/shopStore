@@ -41,7 +41,8 @@ class AdminController extends AbstractController
 
 
     /**
-    * @Route("/admin/newCat", name="admin_createCat")
+     * 
+    * @Route("/admin/Cat/new", name="admin_createCat")
     * @Route("/admin/{id}/editCat", name="admin_editCat_admin")
     */
     public function editCat(Request $request, ObjectManager $manager, Category $category = null)

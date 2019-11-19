@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,13 +22,13 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=10, max=255)
+     * @Assert\Length(min=3, max=50, minMessage = "Votre Mssage doit aoir plus de 2 caracteres")            
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=10)
+     * @Assert\Length(min=2)
      */
     private $content;
 
@@ -39,6 +40,7 @@ class Article
 
     /**
      * @ORM\Column(type="datetime")
+     * 
      */
     private $createdAt;
 
