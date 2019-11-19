@@ -6,6 +6,8 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -40,10 +42,8 @@ class AdminController extends AbstractController
 
     /**
     * @Route("/admin/newCat", name="admin_createCat")
-    * @Route("/admin/{id}/editCat", name="admin_editCat")
+    * @Route("/admin/{id}/editCat", name="admin_editCat_admin")
     */
-    
-    /*
     public function editCat(Request $request, ObjectManager $manager, Category $category = null)
     {
         if(!$category) {
@@ -66,13 +66,12 @@ class AdminController extends AbstractController
                         return $this->redirectToRoute('cat');
                 }
 
-                return $this->render('admin/editCat.html.twig', [
+                return $this->render('admin/editCat_adminy.html.twig', [
                      'formCategory' => $form->createView(),
                      'editMode' => $category->getId() !== null
                      ]);
     
     }
-    */
 
     /**
      * @Route("/index_article", name="index_article")
