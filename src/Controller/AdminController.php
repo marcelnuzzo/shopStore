@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class AdminController extends AbstractController
 {
@@ -40,38 +43,47 @@ class AdminController extends AbstractController
     }
 
 
-    /**
-     * 
-    * @Route("/admin/Cat/new", name="admin_createCat")
-    * @Route("/admin/{id}/editCat", name="admin_editCat_admin")
-    */
-    public function editCat(Request $request, ObjectManager $manager, Category $category = null)
+     /**
+     * @Route("/admin/newArt", name="admin_editArt_admin")
+     * @Route("/admin/{id}/edit", name="admin_edit")
+     */
+    public function form(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
     {
-        if(!$category) {
+        if(!$article) {
+            $article = new Article();
             $category = new Category();
         }
-    
-        $form = $this->createFormBuilder($category)
+       
+        $form = $this->createFormBuilder($article)
                      ->add('title')
                      ->add('content')
-                     ->add('description')
+                     ->add('image')
+                     ->add('category', EntityType::class, [
+                        'class' => Category::class,
+                        "choice_label" => 'title'
+                    ])
                      ->getForm();
 
-                $form->handleRequest($request);
+        
+            $form->handleRequest($request);
+       
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            if(!$article->getId()) {
+                $article->setCreatedAt(new \DateTime());
+            }
+            $manager->persist($article);
+            //$manager->persist($category);
+            $manager->flush();
 
-                if($form->isSubmitted() && $form->isValid()) {
-                    
-                    $manager->persist($category);
-                    $manager->flush();
-            
-                        return $this->redirectToRoute('cat');
-                }
+            return $this->redirectToRoute('index_article', ['id' => $article->getId()
+            ]);
+        }
 
-                return $this->render('admin/editCat_adminy.html.twig', [
-                     'formCategory' => $form->createView(),
-                     'editMode' => $category->getId() !== null
-                     ]);
-    
+        return $this->render("admin/editArt_admin.html.twig", [
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId() !== null
+        ]);
     }
 
     /**
