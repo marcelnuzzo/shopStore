@@ -7,6 +7,7 @@
 <div class = "jumbotron">
     <h1 style="text-align:center"><mark>Utilisateurs</mark></h1>
 </div>
+<td><button type="submit" style="background-color:#6174D1" href="#" class="btn btn-primary">Créer</button></td>
 <table class="table table-striped table-bordered table-hover">
     <tr>
         <th>Id</th>
@@ -32,7 +33,7 @@
             <td>{{ utilisateur.duree }}</td>
             <td>{{ utilisateur.finDeLocation }}</td>
             <td>{{ utilisateur.mail }}</td>
-            <td><button type="submit" class="btn btn-warning" href="#" class="btn btn-primary">Editer</button></td>
+            <td><button type="submit" class="btn btn-warning" href="#">Editer</button></td>
             <td><button type="submit" class="btn btn-danger">Supprimer</button></td>
         </tr>
     {% endfor %}

@@ -1,11 +1,31 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block title %}Catégorie{% endblock %}
+{% form_theme formCategory 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+    <div class="jumbotron" style="background-color:DeepSkyBlue">
+    {% if editMode %}
+        <h1 style ="text-align:center">Modification de la catégorie</h1>                
+    {% else %}
+        <h1 style ="text-align:center">Création d'une catégorie</h1>
+    {% endif %}
+    </div>
 
-<div class = "jumbotron">
-    <h1 style="text-align:center"><mark>Catégorie</mark></h1>
-</div>
+    {{ form_start(formCategory) }}
 
+    {{ form_row(formCategory.title, {'attr': {'placeholder': "Titre de la catégorie"}}) }}
+    {{ form_row(formCategory.content, {'attr': {'placeholder': "Contenu de la catégorie"}}) }}
+    {{ form_row(formCategory.description, {'attr': {'placeholder': "description de la catégorie"}}) }}
+    
+    <button type="submit" class="btn btn-success">
+    {% if editMode %}
+        Modifier
+    {% else %}
+        Ajouter la catégorie
+    {% endif %}
+    </button>
+    
+    {{ form_end(formCategory) }}
+    
+   
 {% endblock %}

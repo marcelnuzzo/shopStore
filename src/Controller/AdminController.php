@@ -37,6 +37,43 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+    /**
+    * @Route("/admin/newCat", name="admin_createCat")
+    * @Route("/admin/{id}/editCat", name="admin_editCat")
+    */
+    
+    /*
+    public function editCat(Request $request, ObjectManager $manager, Category $category = null)
+    {
+        if(!$category) {
+            $category = new Category();
+        }
+    
+        $form = $this->createFormBuilder($category)
+                     ->add('title')
+                     ->add('content')
+                     ->add('description')
+                     ->getForm();
+
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    
+                    $manager->persist($category);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('cat');
+                }
+
+                return $this->render('admin/editCat.html.twig', [
+                     'formCategory' => $form->createView(),
+                     'editMode' => $category->getId() !== null
+                     ]);
+    
+    }
+    */
+
     /**
      * @Route("/index_article", name="index_article")
      *  @Route("/admin/{id}/editArt", name="admin_editArt")
