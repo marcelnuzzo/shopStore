@@ -43,20 +43,11 @@ class AdminController extends AbstractController
     }
 
 
-<<<<<<< HEAD
-    /**
-     * 
-    * @Route("/admin/newCat", name="admin_createCat")
-    * @Route("/admin/{id}/editCat", name="admin_editCat")
-    */
-    public function adminCat(Request $request, ObjectManager $manager, Category $category = null)
-=======
      /**
      * @Route("/admin/newArt", name="admin_editArt_admin")
      * @Route("/admin/{id}/edit", name="admin_edit")
      */
     public function form(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
->>>>>>> c4905438eda50566fec425ba76fe5757c5156d39
     {
         if(!$article) {
             $article = new Article();
@@ -82,24 +73,9 @@ class AdminController extends AbstractController
                 $article->setCreatedAt(new \DateTime());
             }
             $manager->persist($article);
-            //$manager->persist($category);
+           
             $manager->flush();
 
-<<<<<<< HEAD
-                if($form->isSubmitted() && $form->isValid()) {
-                    
-                    $manager->persist($category);
-                    $manager->flush();
-            
-                        return $this->redirectToRoute('index_categorie');
-                }
-
-                return $this->render('admin/createCat.html.twig', [
-                     'formCategory' => $form->createView(),
-                     'editMode' => $category->getId() !== null
-                     ]);
-    
-=======
             return $this->redirectToRoute('index_article', ['id' => $article->getId()
             ]);
         }
@@ -108,7 +84,6 @@ class AdminController extends AbstractController
             'formArticle' => $form->createView(),
             'editMode' => $article->getId() !== null
         ]);
->>>>>>> c4905438eda50566fec425ba76fe5757c5156d39
     }
 
     /**
