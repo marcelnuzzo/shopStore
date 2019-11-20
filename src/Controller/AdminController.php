@@ -42,10 +42,10 @@ class AdminController extends AbstractController
 
     /**
      * 
-    * @Route("/admin/Cat/new", name="admin_createCat")
-    * @Route("/admin/{id}/editCat", name="admin_editCat_admin")
+    * @Route("/admin/newCat", name="admin_createCat")
+    * @Route("/admin/{id}/editCat", name="admin_editCat")
     */
-    public function editCat(Request $request, ObjectManager $manager, Category $category = null)
+    public function adminCat(Request $request, ObjectManager $manager, Category $category = null)
     {
         if(!$category) {
             $category = new Category();
@@ -64,10 +64,10 @@ class AdminController extends AbstractController
                     $manager->persist($category);
                     $manager->flush();
             
-                        return $this->redirectToRoute('cat');
+                        return $this->redirectToRoute('index_categorie');
                 }
 
-                return $this->render('admin/editCat_adminy.html.twig', [
+                return $this->render('admin/createCat.html.twig', [
                      'formCategory' => $form->createView(),
                      'editMode' => $category->getId() !== null
                      ]);
