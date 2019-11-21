@@ -45,8 +45,7 @@ class HomeController extends AbstractController
     public function contact()
     {
         return $this->render('home/contact.html.twig', [
-            'controller_name' => 'HomeController',
-            'age'=> mt_rand(1,36),
+            'controller_name' => 'HomeController'
         ]);
     }
 

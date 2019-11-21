@@ -22,7 +22,8 @@ class BlogController extends AbstractController
     {
         
         $repo = $this->getDoctrine()->getRepository(Article::class);
-        
+        $repo1 = $this->getDoctrine()->getRepository(Category::class);
+        $categories = $repo1->findAll();
         $articles = $paginator->paginate(
             $repo->findAll(),
             $request->query->getInt('page', 1), /*page number*/
@@ -31,7 +32,8 @@ class BlogController extends AbstractController
 
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
-            'articles'=> $articles
+            'articles'=> $articles,
+            'categories'=> $categories
         ]);
     }
 
@@ -87,7 +89,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}", name="blog_show")
+     * @Route("/blog1/{id}", name="blog_show")
      */
     public function show($id)
     {
@@ -142,5 +144,21 @@ class BlogController extends AbstractController
             'controller_name' => 'BlogController',
             'utilisateurs'=> $utilisateur
         ]);
+    }
+
+    /**
+     * @route("/blog2/{id}", name="blog_catArt")
+     */
+    public function showCatArt($id) {
+
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+        
+        $category = $repo->find($id);
+           
+        return $this->render('blog/catArt.html.twig', [
+            'controller_name' => 'BlogController',
+            'category'=> $category
+        ]);
+
     }
 }
