@@ -7,7 +7,8 @@
 <div class = "jumbotron">
     <h1 style="text-align:center"><mark>Articles</mark></h1>
 </div>
-<a class="btn btn-warning" style="color:white" href="{{ path('admin_editArt_admin') }}" role="button" >Créer</a>
+<a class="btn btn-warning" style="color:white" href="{{ path('admin_createArt') }}" role="button" >Créer</a>
+<hr>
 <table class="table table-striped table-bordered table-hover">
     <tr>
         <th>Id</th>
@@ -25,7 +26,7 @@
             <td>{{ article.image }}</td>
             <td>{{ article.createdAt | date('d/m/Y H:i') }}</td>
             <td>{{ article.category.title }}</td>
-            <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editArt_admin') }}" role="button" >Modifier</a></td>
+            <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editArt', {'id':article.id}) }}" role="button" >Modifier</a></td>
             <td><a class="btn btn-danger" style="color:white" href="#" role="button" >Supprimer</a></td>
         </tr>
     {% endfor %}

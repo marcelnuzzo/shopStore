@@ -79,7 +79,6 @@ class FormulaireController extends AbstractController
     * @Route("/formulaire/newCat", name="formulaire_createCat")
     * @Route("/formulaire/{id}/editCat", name="formulaire_editCat")
     */
-    
     public function formulaireCat(Request $request, ObjectManager $manager, Category $category = null)
     {
         if(!$category) {

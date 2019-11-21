@@ -1,9 +1,8 @@
 {% extends 'base_admin.html.twig' %}
 
-{% form_theme formCategory 'bootstrap_4_layout.html.twig' %}
+{% form_theme formCommentaire 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    
     {% if editMode %}
         <div class="jumbotron" style="background-color:cyan">
             <h1 style ="text-align:center">Modification d'une catégorie</h1>
@@ -14,12 +13,13 @@
         </div>
     {% endif %}
 
-    {{ form_start(formCategory) }}
-
-    {{ form_row(formCategory.title, {'attr': {'placeholder': "Titre de la catégorie"}}) }}
-    {{ form_row(formCategory.content, {'attr': {'placeholder': "Contenu de la catégorie"}}) }}
-    {{ form_row(formCategory.description, {'attr': {'placeholder': "description de la catégorie"}}) }}
+    {{ form_start(formCommentaire) }}
     
+    {{ form_row(formCommentaire.author, {'attr': {'placeholder': "Auteur du commentaire"}}) }}
+    {{ form_row(formCommentaire.content, {'attr': {'placeholder': "Contenu du commentaire"}}) }}
+    {{ form_row(formCommentaire.createdAt, {'attr': {'placeholder': "Date de création du commentaire"}}) }}
+    {{ form_row(formCommentaire.article) }}
+
     <button type="submit" class="btn btn-success">
     {% if editMode %}
         Modifier
@@ -28,7 +28,7 @@
     {% endif %}
     </button>
     
-    {{ form_end(formCategory) }}
+    {{ form_end(formCommentaire) }}
     
    
 {% endblock %}

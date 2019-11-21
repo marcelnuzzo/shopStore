@@ -1,0 +1,37 @@
+{% extends 'base_admin.html.twig' %}
+
+{% form_theme formUtilisateur 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    {% if editMode %}
+        <div class="jumbotron" style="background-color:cyan">
+            <h1 style ="text-align:center">Modification d'une catégorie</h1>
+        </div>                
+    {% else %}
+        <div class="jumbotron" style="background-color:orange">
+            <h1 style ="text-align:center">Création d'une catégorie</h1>
+        </div>
+    {% endif %}
+        {{ form_start(formUtilisateur) }}
+
+        {{ form_row(formUtilisateur.nom, {'attr': {'placeholder': "Nom de l' utilisateur"}}) }}
+        {{ form_row(formUtilisateur.prenom, {'attr': {'placeholder': "Prénom de l'utilisateur"}}) }}
+        {{ form_row(formUtilisateur.date_de_naissance, {'attr': {'placeholder': "Date de naissance de l'utilisateur"}}) }}
+        {{ form_row(formUtilisateur.login, {'attr': {'placeholder': "Login de l'utilisateur"}}) }}
+        {{ form_row(formUtilisateur.mot_de_passe, {'attr': {'placeholder': "Mot de passe de l'utilisateur"}}) }}
+        {{ form_row(formUtilisateur.date_de_location, {'attr': {'placeholder': "date de location"}}) }}
+        {{ form_row(formUtilisateur.duree, {'attr': {'placeholder': "Durée de la location"}}) }}
+        {{ form_row(formUtilisateur.fin_de_location, {'attr': {'placeholder': "Fin de la location"}}) }}
+        {{ form_row(formUtilisateur.mail, {'attr': {'placeholder': "Mail de l'utilisateur"}}) }}
+
+        <button type="submit" class="btn btn-success">
+            {% if editMode %}
+                Modifier
+            {% else %}
+                Créer
+            {% endif %}
+        </button>
+
+        {{ form_end(formUtilisateur) }}
+    
+{% endblock %}
