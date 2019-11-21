@@ -44,8 +44,8 @@ class AdminController extends AbstractController
 
 
      /**
-     * @Route("/admin/newArt", name="admin_editArt_admin")
-     * @Route("/admin/{id}/edit", name="admin_edit")
+     * @Route("/admin/editArt", name="admin_editArt")
+     * 
      */
     public function form(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
     {
@@ -80,7 +80,50 @@ class AdminController extends AbstractController
             ]);
         }
 
-        return $this->render("admin/editArt_admin.html.twig", [
+        return $this->render("admin/editArt.html.twig", [
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId() !== null
+        ]);
+    }
+
+     /**
+     * 
+     * @Route("/admin/editArt/{id}", name="admin/editArt")
+     */
+    public function form2(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
+    {
+        if(!$article) {
+            $article = new Article();
+            $category = new Category();
+        }
+       
+        $form = $this->createFormBuilder($article)
+                     ->add('title')
+                     ->add('content')
+                     ->add('image')
+                     ->add('category', EntityType::class, [
+                        'class' => Category::class,
+                        "choice_label" => 'title'
+                    ])
+                     ->getForm();
+
+        
+            $form->handleRequest($request);
+       
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            if(!$article->getId()) {
+                $article->setCreatedAt(new \DateTime());
+            }
+            $manager->persist($article);
+            //$manager->persist($category);
+            $manager->flush();
+
+            return $this->redirectToRoute('index_article', ['id' => $article->getId()
+            ]);
+        }
+
+        return $this->render("admin/editArt.html.twig", [
             'formArticle' => $form->createView(),
             'editMode' => $article->getId() !== null
         ]);
@@ -88,7 +131,7 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/index_article", name="index_article")
-     *  @Route("/admin/{id}/editArt", name="admin_editArt")
+     *  
      */
     public function article()
     {
