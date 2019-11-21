@@ -1,6 +1,6 @@
 {% extends 'base_admin.html.twig' %}
 
-{% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
+{% form_theme formCommentaire 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
     {% if editMode %}
@@ -13,22 +13,22 @@
         </div>
     {% endif %}
 
-    {{ form_start(formArticle) }}
+    {{ form_start(formCommentaire) }}
     
-    {{ form_row(formArticle.title, {'attr': {'placeholder': "Titre de l'article"}}) }}
-    {{ form_row(formArticle.content, {'attr': {'placeholder': "Contenu de l'article"}}) }}
-    {{ form_row(formArticle.image, {'attr': {'placeholder': "URL de l'image"}}) }}
-    {{ form_row(formArticle.category) }}
+    {{ form_row(formCommentaire.author, {'attr': {'placeholder': "Auteur du commentaire"}}) }}
+    {{ form_row(formCommentaire.content, {'attr': {'placeholder': "Contenu du commentaire"}}) }}
+    {{ form_row(formCommentaire.createdAt, {'attr': {'placeholder': "Date de création du commentaire"}}) }}
+    {{ form_row(formCommentaire.article) }}
 
     <button type="submit" class="btn btn-success">
     {% if editMode %}
         Modifier
     {% else %}
-        Ajouter l'article
+        Créer
     {% endif %}
     </button>
     
-    {{ form_end(formArticle) }}
+    {{ form_end(formCommentaire) }}
     
    
 {% endblock %}

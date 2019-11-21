@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,19 +22,34 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=3, max=50, minMessage = "Votre Mssage doit aoir plus de 2 caracteres")            
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre titre est trop trop court",
+     *      maxMessage = "Your title is very short"
+     * )           
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\Length(min=2)
+     * @Assert\Regex("/^[a-z]/",
+     *      message = "Pas de chiffre"
+     * )
+     *
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url()
+     *@Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 400,
+     *     minHeight = 200,
+     *     maxHeight = 400
+     * )
      */
     private $image;
 

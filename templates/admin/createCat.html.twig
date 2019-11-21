@@ -3,13 +3,16 @@
 {% form_theme formCategory 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    <div class="jumbotron" style="background-color:DeepSkyBlue">
+    
     {% if editMode %}
-        <h1 style ="text-align:center">Modification de la catégorie</h1>                
+        <div class="jumbotron" style="background-color:cyan">
+            <h1 style ="text-align:center">Modification d'une catégorie</h1>
+        </div>                
     {% else %}
-        <h1 style ="text-align:center">Création d'une catégorie</h1>
+        <div class="jumbotron" style="background-color:orange">
+            <h1 style ="text-align:center">Création d'une catégorie</h1>
+        </div>
     {% endif %}
-    </div>
 
     {{ form_start(formCategory) }}
 
@@ -21,7 +24,7 @@
     {% if editMode %}
         Modifier
     {% else %}
-        Ajouter la catégorie
+        Créer
     {% endif %}
     </button>
     

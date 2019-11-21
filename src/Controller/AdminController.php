@@ -9,9 +9,11 @@ use App\Entity\Utilisateur;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class AdminController extends AbstractController
@@ -42,94 +44,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-
      /**
-     * @Route("/admin/editArt", name="admin_editArt")
-     * 
-     */
-    public function form(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
-    {
-        if(!$article) {
-            $article = new Article();
-            $category = new Category();
-        }
-       
-        $form = $this->createFormBuilder($article)
-                     ->add('title')
-                     ->add('content')
-                     ->add('image')
-                     ->add('category', EntityType::class, [
-                        'class' => Category::class,
-                        "choice_label" => 'title'
-                    ])
-                     ->getForm();
-
-        
-            $form->handleRequest($request);
-       
-        
-        if($form->isSubmitted() && $form->isValid()) {
-            if(!$article->getId()) {
-                $article->setCreatedAt(new \DateTime());
-            }
-            $manager->persist($article);
-            //$manager->persist($category);
-            $manager->flush();
-
-            return $this->redirectToRoute('index_article', ['id' => $article->getId()
-            ]);
-        }
-
-        return $this->render("admin/editArt.html.twig", [
-            'formArticle' => $form->createView(),
-            'editMode' => $article->getId() !== null
-        ]);
-    }
-
-     /**
-     * 
-     * @Route("/admin/editArt/{id}", name="admin/editArt")
-     */
-    public function form2(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
-    {
-        if(!$article) {
-            $article = new Article();
-            $category = new Category();
-        }
-       
-        $form = $this->createFormBuilder($article)
-                     ->add('title')
-                     ->add('content')
-                     ->add('image')
-                     ->add('category', EntityType::class, [
-                        'class' => Category::class,
-                        "choice_label" => 'title'
-                    ])
-                     ->getForm();
-
-        
-            $form->handleRequest($request);
-       
-        
-        if($form->isSubmitted() && $form->isValid()) {
-            if(!$article->getId()) {
-                $article->setCreatedAt(new \DateTime());
-            }
-            $manager->persist($article);
-            //$manager->persist($category);
-            $manager->flush();
-
-            return $this->redirectToRoute('index_article', ['id' => $article->getId()
-            ]);
-        }
-
-        return $this->render("admin/editArt.html.twig", [
-            'formArticle' => $form->createView(),
-            'editMode' => $article->getId() !== null
-        ]);
-    }
-
-    /**
      * @Route("/index_article", name="index_article")
      *  
      */
@@ -174,4 +89,334 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /**
+    * @Route("/admin/newCat", name="admin_createCat")
+    * 
+    */
+    public function formulaireCat(Request $request, ObjectManager $manager, Category $category = null)
+    {
+        if(!$category) {
+            $category = new Category();
+        }
+    
+        $form = $this->createFormBuilder($category)
+                     ->add('title')
+                     ->add('content')
+                     ->add('description')
+                     ->getForm();
+
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$category)
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($category);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_categorie');
+                }
+
+                return $this->render('admin/createCat.html.twig', [
+                     'formCategory' => $form->createView(),
+                     'editMode' => $category->getId() !== null
+                     ]);
+    
+    }
+
+    /**
+    * 
+    * @Route("/admin/editionCat/{id}", name="admin_editCat")
+    */
+    public function formulaireCat2(Request $request, ObjectManager $manager, Category $category = null)
+    {
+        if(!$category) {
+            $category = new Category();
+        }
+    
+        $form = $this->createFormBuilder($category)
+                     ->add('title')
+                     ->add('content')
+                     ->add('description')
+                     ->getForm();
+
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$category)
+                        $editMode = 0;
+                    else
+                        $editMode = 0;
+                    $manager->persist($category);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_categorie',  ['id' => $category->getId()
+                        ]);
+                }
+
+                return $this->render('admin/createCat.html.twig', [
+                     'formCategory' => $form->createView(),
+                     'editMode' => $category->getId() !== null
+                     ]);
+    
+    }
+
+    /**
+    * @Route("/admin/newCom", name="admin_createCom")
+    * 
+    */
+    public function formulaireCom(Article $article = null, Request $request, ObjectManager $manager, Commentaire $commentaire = null)
+    {
+        if(!$commentaire) {
+            $commentaire = new Commentaire();
+            $article = new Article();
+        }
+    
+        $form = $this->createFormBuilder($commentaire)
+                     ->add('author')
+                     ->add('content')
+                     ->add('createdAt', DateType::class)
+                     ->add('article', EntityType::class, [
+                        'class' => Article::class,
+                        "choice_label" => 'title'
+                    ])
+                     ->getForm();
+
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$commentaire)
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($commentaire);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_commentaire');
+                }
+
+                return $this->render('admin/createCom.html.twig', [
+                     'formCommentaire' => $form->createView(),
+                     'editMode' => $commentaire->getId() !== null
+                     ]);
+    
+    }
+
+    /**
+    * 
+    * @Route("/admin/editionCom/{id}", name="admin_editCom")
+    */
+    public function formulaireCom1(Article $article = null, Request $request, ObjectManager $manager, Commentaire $commentaire = null)
+    {    
+        $form = $this->createFormBuilder($commentaire)
+                     ->add('author')
+                     ->add('content')
+                     ->add('createdAt', DateType::class)
+                     ->add('article', EntityType::class, [
+                        'class' => Article::class,
+                        "choice_label" => 'title'
+                    ])
+                     ->getForm();
+
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$commentaire)
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($commentaire);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_commentaire',  ['id' => $commentaire->getId()
+                        ]);
+                }
+
+                return $this->render('admin/createCom.html.twig', [
+                     'formCommentaire' => $form->createView(),
+                     'editMode' => $commentaire->getId() == null
+                     ]);
+    
+    }
+
+
+    /**
+    * @Route("/admin/newUti", name="admin_createUti")
+    * 
+    */
+    public function formulaireUti(Request $request, ObjectManager $manager, Utilisateur $utilisateur = null)
+    {
+        if(!$utilisateur) {
+            $utilisateur = new Utilisateur();
+        }
+
+        $form = $this->createFormBuilder($utilisateur)
+                     ->add('prenom')
+                     ->add('nom')
+                     ->add('date_de_naissance')
+                     ->add('mail')
+                     ->add('login')
+                     ->add('mot_de_passe', PasswordType::class)
+                     ->add('date_de_location')
+                     ->add('duree')
+                     ->add('fin_de_location')
+
+                     ->getForm();
+                     
+           
+                $form->handleRequest($request);
+               
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$utilisateur)
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($utilisateur);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_utilisateur');
+                }
+
+            return $this->render('admin/createUti.html.twig', [
+                'formUtilisateur' => $form->createView(),
+                'editMode' => $utilisateur->getId() !== null
+                ]);
+      
+    }
+
+    /**
+    * 
+    * @Route("/admin/editionUti/{id}", name="admin_editUti")
+    */
+    public function formulaireUti1(Request $request, ObjectManager $manager, Utilisateur $utilisateur = null)
+    {
+        if(!$utilisateur) {
+            $utilisateur = new Utilisateur();
+        }
+
+        $form = $this->createFormBuilder($utilisateur)
+                     ->add('prenom')
+                     ->add('nom')
+                     ->add('date_de_naissance')
+                     ->add('mail')
+                     ->add('login')
+                     ->add('mot_de_passe', PasswordType::class)
+                     ->add('date_de_location')
+                     ->add('duree')
+                     ->add('fin_de_location')
+
+                     ->getForm();
+                     
+           
+                $form->handleRequest($request);
+               
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$utilisateur->getId()) 
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($utilisateur);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_utilisateur',  ['id' => $utilisateur->getId()
+                        ]);
+                }
+
+            return $this->render('admin/createUti.html.twig', [
+                'formUtilisateur' => $form->createView(),
+                'editMode' => $utilisateur->getId() !== null
+                ]);
+      
+    }
+
+     /**
+     * @Route("/admin/newArt", name="admin_createArt")
+     * 
+     */
+    public function formArt(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
+    {
+        if(!$article) {
+            $article = new Article();
+            $category = new Category();
+        }
+       
+        $form = $this->createFormBuilder($article)
+                     ->add('title')
+                     ->add('content')
+                     ->add('image')
+                     ->add('category', EntityType::class, [
+                        'class' => Category::class,
+                        "choice_label" => 'title'
+                    ])
+                     ->getForm();
+
+        
+            $form->handleRequest($request);
+       
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            if(!$article->getId()) {
+                $article->setCreatedAt(new \DateTime());
+                $editMode = 0;
+            }
+            else {
+                $editMode = 1;
+            }
+            $manager->persist($article);
+           
+            $manager->flush();
+
+            return $this->redirectToRoute('index_article');
+        }
+
+    return $this->render("admin/createArt.html.twig", [
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId() !== null
+        ]);
+    }
+
+     /**
+     * 
+     * @Route("/admin/editionArt/{id}", name="admin_editArt")
+     */
+    public function formArtarticle1 (Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
+    {
+       
+        $form = $this->createFormBuilder($article)
+                     ->add('title')
+                     ->add('content')
+                     ->add('image')
+                     ->add('category', EntityType::class, [
+                        'class' => Category::class,
+                        "choice_label" => 'title'
+                        ])
+                     ->getForm();
+
+        
+            $form->handleRequest($request);
+       
+        
+        if($form->isSubmitted() && $form->isValid()) {
+            if(!$article->getId()) {
+                $article->setCreatedAt(new \DateTime());
+                $editMode = 0;
+            }
+            else {
+                $editMode = 1;
+            }
+            $manager->persist($article);
+           
+            $manager->flush();
+
+            return $this->redirectToRoute('index_article', ['id' => $article->getId()
+            ]);
+        }
+
+    return $this->render("admin/createArt.html.twig", [
+            'formArticle' => $form->createView(),
+            'editMode' => $article->getId() !== null
+        ]);
+    }
 }
+
