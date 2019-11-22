@@ -6,6 +6,7 @@
 
 <div class = "jumbotron">
      <article>
+          <h1 style="text-align:center;color:blue">Article n° : {{ article.id }}
           <h2>{{article.title}}</h2>
           <div class = "metadata"> Ecrit le &nbsp<strong>{{ article.createdAt | date('d/m/Y)') }}</strong>&nbsp à &nbsp{{ article.createdAt | date  ('H:i') }}&nbsp dans la catégorie &nbsp<strong>{{ article.category.content }}</strong>
           </div>
