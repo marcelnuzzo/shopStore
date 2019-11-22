@@ -30,12 +30,31 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/base", name="base")
+     *  
+     */
+    public function article()
+    {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+        
+        return $this->render('home/base.html.twig', [
+            'controller_name' => 'AdminController',
+            'articles'=> $articles
+        ]);
+    }
+
+    /**
     * @route("/apropos", name="apropos")
     */
     public function apropos()
     {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
         return $this->render('home/apropos.html.twig', [
             'controller_name' => 'HomeController',
+            'articles'=>$articles
         ]);
     }
 
@@ -44,8 +63,12 @@ class HomeController extends AbstractController
     */
     public function contact()
     {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
         return $this->render('home/contact.html.twig', [
-            'controller_name' => 'HomeController'
+            'controller_name' => 'HomeController',
+            'articles'=>$articles
         ]);
     }
 

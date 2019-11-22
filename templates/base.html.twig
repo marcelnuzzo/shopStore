@@ -98,10 +98,21 @@ a#cRetour.cVisible{
 
       <!-- Grid column -->
       <div class="col-md-6 mt-md-0 mt-3">
-
+      <div clas="block-center">
         <!-- Content -->
         <h5 class="text-uppercase">Footer Content</h5>
         <p>Here you can use rows and columns to organize your footer content.</p>
+        <table class="table-bordered table-hover center-block">
+          <tr>
+              <th>Titre</th>
+          </tr>
+          {%for article in articles | slice(0,length=5) %}
+          <tr>
+              <td>{{ article.title }}</td>
+          </tr>
+          {% endfor %}
+      </table>
+      </div>
 
       </div>
       <!-- Grid column -->
@@ -113,21 +124,21 @@ a#cRetour.cVisible{
 
         <!-- Links -->
         <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a style="" href="http:\\google.com">Google</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
+          <hr>
+            <ul class="list-unstyled">
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+            </ul>
 
       </div>
       <!-- Grid column -->
@@ -137,22 +148,21 @@ a#cRetour.cVisible{
 
         <!-- Links -->
         <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
-
+          <hr>
+            <ul class="list-unstyled">
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+              <li>
+                <p><a href="#!" style="color:white">Link 1</a></p>
+              </li>
+            </ul>
       </div>
       <!-- Grid column -->
 
@@ -164,7 +174,7 @@ a#cRetour.cVisible{
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2019 Copyright:
-    <a href="#"> MDBootstrap.com</a>
+    <h3><a href="#" style="color:white"> MDBootstrap.com</a></h3>
   </div>
   <!-- Copyright -->
 
