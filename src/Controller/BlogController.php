@@ -102,19 +102,21 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @route("/blog/{id}", name="blog_catArt")
+     * @route("/cat/{id}", name="blog_catArt")
      */
     public function CatArt($id) {
 
         $repo = $this->getDoctrine()->getRepository(Category::class);
         $repo1 = $this->getDoctrine()->getRepository(article::class);
-
+        $repo2 = $this->getDoctrine()->getRepository(article::class);
         $category = $repo->find($id);
-        $articles = $repo1->findAll();
+        $article = $repo1->find($id);
+        $articles = $repo2->findAll();
            
         return $this->render('blog/catArt.html.twig', [
             'controller_name' => 'BlogController',
             'category'=> $category,
+            'article'=> $article,
             'articles'=> $articles
         ]);
 
