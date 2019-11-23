@@ -64,11 +64,14 @@ class HomeController extends AbstractController
     public function contact()
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
+        $repo1 = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
+        $article = $repo1->findAll();
 
         return $this->render('home/contact.html.twig', [
             'controller_name' => 'HomeController',
-            'articles'=>$articles
+            'articles'=>$articles,
+            'article'=> $article
         ]);
     }
 
