@@ -19,6 +19,7 @@
              {% for article in category.article %}
                 <ul style:"text-align:center">
                     <li><p class="text-primary">{{ article.title }} du {{ article.createdAt | date('d/m/Y)')  }} </p></li>
+                    <a href="{{ path('blog_art', {'id':article.id}) }}" class="btn btn-info">Détails</a> 
                 </ul>
             {% endfor %}   
         </div>
