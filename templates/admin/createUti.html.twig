@@ -4,12 +4,12 @@
 
 {% block body %}
     {% if editMode %}
-        <div class="jumbotron" style="background-color:cyan">
-            <h1 style ="text-align:center">Modification d'une catégorie</h1>
+        <div class="jumbotron" style="background-color:orange">
+            <h1 style ="text-align:center">Modification d'un utilisateur</h1>
         </div>                
     {% else %}
-        <div class="jumbotron" style="background-color:orange">
-            <h1 style ="text-align:center">Création d'une catégorie</h1>
+        <div class="jumbotron" style="background-color:cyan">
+            <h1 style ="text-align:center">Création d'un utilisateur</h1>
         </div>
     {% endif %}
         {{ form_start(formUtilisateur) }}

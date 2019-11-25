@@ -24,7 +24,7 @@
             <td>{{ commentaire.createdAt | date('d/m/Y H:i') }}</td>
             <td>{{ commentaire.article.title }}</td>
             <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editCom', {'id':commentaire.id}) }}" role="button" >Modifier</a></td>
-            <td><button type="submit" class="btn btn-danger">Supprimer</button></td>
+            <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteCom', {'id':commentaire.id}) }} " role="button" >Supprimer</a></td>
         </tr>
     {% endfor %}
 </table>

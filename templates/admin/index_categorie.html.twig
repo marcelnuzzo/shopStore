@@ -22,7 +22,7 @@
             <td>{{ category.content }}</td>
             <td>{{ category.description }}</td>
             <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editCat', {'id':category.id}) }}" role="button" >Modifier</a></td>
-            <td><button type="submit" class="btn btn-danger">Supprimer</button></td>
+            <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteCat', {'id':category.id}) }} " role="button" >Supprimer</a></td>
         </tr>
     {% endfor %}
 </table>

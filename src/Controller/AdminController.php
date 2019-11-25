@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -235,7 +236,7 @@ class AdminController extends AbstractController
 
                 return $this->render('admin/createCom.html.twig', [
                      'formCommentaire' => $form->createView(),
-                     'editMode' => $commentaire->getId() == null
+                     'editMode' => $commentaire->getId() !== null
                      ]);
     
     }
@@ -418,5 +419,63 @@ class AdminController extends AbstractController
             'editMode' => $article->getId() !== null
         ]);
     }
+
+    /**
+     * @Route("/admin/index_article/{id}/deleteArt", name="admin_deleteArt")
+     */
+    public function deleteArt($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $article = $repo->find($id);
+        $Manager->remove($article);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('index_article');
+       
+    }
+
+    /**
+     * @Route("/admin/index_categorie/{id}/deleteCat", name="admin_deleteCat")
+     */
+    public function deleteCat($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repo->find($id);
+        $Manager->remove($category);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('index_category');
+       
+    }
+
+    /**
+     * @Route("/admin/index_commentaire/{id}/deleteCom", name="admin_deleteCom")
+     */
+    public function deleteCom($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Commentaire::class);
+        $comment = $repo->find($id);
+        $Manager->remove($comment);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('index_commentaire');
+       
+    }
+
+    /**
+     * @Route("/admin/index_utilisateur/{id}/deleteUti", name="admin_deleteUti")
+     */
+    public function deleteUti($id, ObjectManager $Manager, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
+        $utilisateur = $repo->find($id);
+        $Manager->remove($utilisateur);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('index_utilisateur');
+       
+    }
+
+
 }
 

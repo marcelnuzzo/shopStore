@@ -35,7 +35,7 @@
             <td>{{ utilisateur.finDeLocation }}</td>
             <td>{{ utilisateur.mail }}</td>
             <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editUti', {'id':utilisateur.id}) }}" role="button" >Modifier</a></td>
-            <td><button type="submit" class="btn btn-danger">Supprimer</button></td>
+            <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteUti', {'id':utilisateur.id}) }} " role="button" >Supprimer</a></td>
         </tr>
     {% endfor %}
 </table>
