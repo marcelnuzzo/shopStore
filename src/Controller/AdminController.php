@@ -440,8 +440,14 @@ class AdminController extends AbstractController
     public function deleteCat($id, ObjectManager $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Category::class);
+        $repo1 = $this->getDoctrine()->getRepository(Article::class);
+        
         $category = $repo->find($id);
+        $article = $repo1->findById($category);
+        
+        $Manager->remove($article);
         $Manager->remove($category);
+
         $Manager->flush();
         
         return $this->redirectToRoute('index_category');
@@ -475,7 +481,6 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('index_utilisateur');
        
     }
-
 
 }
 

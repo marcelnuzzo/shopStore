@@ -17,6 +17,7 @@
         <th>Image</th>
         <th>Date</th>
         <th>Titre catégorie</th>
+        <th>Id catégorie</th>
     </tr>
     {%for article in articles %}
         <tr>
@@ -26,6 +27,7 @@
             <td>{{ article.image }}</td>
             <td>{{ article.createdAt | date('d/m/Y H:i') }}</td>
             <td>{{ article.category.title }}</td>
+            <td>{{ article.category.id }}</td>
             <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editArt', {'id':article.id}) }}" role="button" >Modifier</a></td>
             <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteArt', {'id':article.id}) }} " role="button" >Supprimer</a></td>
         </tr>
