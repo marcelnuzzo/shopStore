@@ -48,4 +48,21 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+     /**
+     * @return Article[]
+     */
+    public function findArticleOfOneCategory($category): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM App\Entity\Article p
+            WHERE p.category = :category'
+        )->setParameter('category', $category);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
 }
