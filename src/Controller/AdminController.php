@@ -367,6 +367,7 @@ class AdminController extends AbstractController
             $manager->persist($article);
            
             $manager->flush();
+            $this->addFlash('success', 'Article créé');
 
             return $this->redirectToRoute('index_article');
         }

@@ -12,6 +12,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class BlogController extends AbstractController
 {
@@ -40,16 +41,36 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog1/{id}", name="blog_show")
      */
-    public function show($id)
+    public function show($id, Request $request, ObjectManager $manager)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $repo1 = $this->getDoctrine()->getRepository(Article::class);
         $article = $repo->find($id);
         $articles = $repo->findAll();
+        
+        $commentaire = new Commentaire();
+        $form = $this->createFormBuilder($commentaire)
+                     ->add('author')
+                     ->add('content')
+                     ->add('createdAt', DateType::class)
+                     ->getForm();
 
+                $form->handleRequest($request);
+
+                if($form->isSubmitted() && $form->isValid()) {
+                    $commentaire->setArticle($article);
+                    $manager->persist($commentaire);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('blog_show',  ['id' => $article->getId()
+                        ]);
+                }
+               
         return $this->render('blog/show.html.twig', [
             'article'=> $article,
-            'articles'=> $articles
+            'articles'=> $articles,
+            'commentaire'=> $commentaire,
+            'formCommentaire' => $form->createView(),
         ]);
     }
 

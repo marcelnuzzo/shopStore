@@ -62,7 +62,7 @@ class ArticleRepository extends ServiceEntityRepository
             WHERE p.category = :category'
         )->setParameter('category', $category);
 
-        // returns an array of Product objects
+        // returns an array of Article objects
         return $query->getResult();
     }
 }
