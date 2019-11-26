@@ -8,14 +8,15 @@
     <h1 style="text-align:center; background-color:green; text-decoration:underline">Catégorie n° : &nbsp {{ category.id }}</h1>
     <category>
         <h2 style="text-align:center">{{ category.title }}</h2>
-        <h3>{{ category.content }}</h3>
+        <h2 style="text-align:center"><strong>Contenu de la catégorie :</strong></h2>
+        <h3 style="text-align:center">{{ category.content }}</h3>
     </category>
 </div>
 <hr>
 <div>
     <section class="article">
         <div>
-            <h2>Les articles de cette catégorie :</h2>
+            <h2>{{ category.article | length }} &nbsp article(s) pour cette catégorie :</h2>
              {% for article in category.article %}
                 <ul style:"text-align:center">
                     <li><p class="text-primary">{{ article.title }} du {{ article.createdAt | date('d/m/Y)')  }} </p></li>
@@ -25,5 +26,6 @@
         </div>
     </section>
 </div>
+<hr>
 
 {% endblock %}

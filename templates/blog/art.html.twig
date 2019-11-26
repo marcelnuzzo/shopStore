@@ -6,7 +6,8 @@
 
 <div class = "jumbotron">
     <h1 style="text-align:center; background-color:yellow; text-decoration:underline">article n° : &nbsp {{ article.id }}</h1>
-</div>    
+</div>  
+<div>  
     <div class="container-fluid">
         <div class="row">
             <div class="col-4">
@@ -33,9 +34,9 @@
             </div>
         </div>
     </div>
-    <hr>
     <div class = "content">
         <img src=" {{ article.image }} " alt="" width="220">
     </div>
-
+</div>
+<hr>
 {% endblock %}
