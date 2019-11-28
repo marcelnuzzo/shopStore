@@ -32,7 +32,7 @@ class Category
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category", orphanRemoval=true)
      */
     private $article;
 

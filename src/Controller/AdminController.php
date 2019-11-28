@@ -367,6 +367,7 @@ class AdminController extends AbstractController
             $manager->persist($article);
            
             $manager->flush();
+            $this->addFlash('success', 'Article créé');
 
             return $this->redirectToRoute('index_article');
         }
@@ -427,6 +428,7 @@ class AdminController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $article = $repo->find($id);
+
         $Manager->remove($article);
         $Manager->flush();
         
@@ -440,19 +442,12 @@ class AdminController extends AbstractController
     public function deleteCat($id, ObjectManager $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Category::class);
-        //$repo1 = $this->getDoctrine()->getRepository(Article::class);
-        
         $category = $repo->find($id);
-        //$article = $repo1->findById($category);
-        $article = $this->getDoctrine()
-                        ->getRepository(Article::class)
-                        ->findArticleOfOneCategory($category);
-        $Manager->remove($article);
+       
         $Manager->remove($category);
-
         $Manager->flush();
         
-        return $this->redirectToRoute('index_category');
+        return $this->redirectToRoute('index_categorie');
        
     }
 

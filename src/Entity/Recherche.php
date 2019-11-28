@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\RechercheRepository")
+ */
+class Recherche
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titreArticle;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $categoryArticle;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitreArticle(): ?string
+    {
+        return $this->titreArticle;
+    }
+
+    public function setTitreArticle(?string $titreArticle): self
+    {
+        $this->titreArticle = $titreArticle;
+
+        return $this;
+    }
+
+    public function getCategoryArticle(): ?string
+    {
+        return $this->categoryArticle;
+    }
+
+    public function setCategoryArticle(?string $categoryArticle): self
+    {
+        $this->categoryArticle = $categoryArticle;
+
+        return $this;
+    }
+}

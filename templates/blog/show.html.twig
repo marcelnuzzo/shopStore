@@ -16,7 +16,23 @@
                {{ article.content | raw}}  
           </div>     
      </article>
-       </br>   
+</div>
+       </br> 
+     <div>
+          <h1 style ="text-align:center">Création d'un commentaire</h1>
+
+          {{ form_start(formCommentaire) }}
+          
+          {{ form_row(formCommentaire.author, {'attr': {'placeholder': "Auteur du commentaire"}}) }}
+          {{ form_row(formCommentaire.content, {'attr': {'placeholder': "Contenu du commentaire"}}) }}
+          
+          
+          <div class=" mx-auto d-block">
+               <button type="submit" class="btn btn-success">Créer un commentaire</button>
+          </div>
+          {{ form_end(formCommentaire) }}
+     </div> 
+     </br>  
        <div>
           <section class="commentaires">
                <div class="container">
@@ -55,7 +71,5 @@
                {% endfor %}
           </section>
        </div>
-       
-</div>
-
+  
 {% endblock %}
