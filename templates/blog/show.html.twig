@@ -25,7 +25,7 @@
           
           {{ form_row(formCommentaire.author, {'attr': {'placeholder': "Auteur du commentaire"}}) }}
           {{ form_row(formCommentaire.content, {'attr': {'placeholder': "Contenu du commentaire"}}) }}
-          {{ form_row(formCommentaire.createdAt, {'attr': {'placeholder': "Date de création du commentaire"}}) }}
+          
           
           <div class=" mx-auto d-block">
                <button type="submit" class="btn btn-success">Créer un commentaire</button>
@@ -63,7 +63,6 @@
                               </div>
                               <div class="col">
                                    <p>{{ commentaire.content | raw}}</p>
-                                   <button type="submit" class="btn btn-success">Créer un commentaire</button>
                               </div>
                          </div>
                     </div>

@@ -46,18 +46,20 @@ class BlogController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $repo1 = $this->getDoctrine()->getRepository(Article::class);
         $article = $repo->find($id);
-        $articles = $repo->findAll();
+        $articles = $repo1->findAll();
         
         $commentaire = new Commentaire();
         $form = $this->createFormBuilder($commentaire)
                      ->add('author')
                      ->add('content')
-                     ->add('createdAt', DateType::class)
                      ->getForm();
 
                 $form->handleRequest($request);
 
                 if($form->isSubmitted() && $form->isValid()) {
+                    if(!$commentaire->getId()) {
+                        $commentaire->setCreatedAt(new \DateTime());
+                    }
                     $commentaire->setArticle($article);
                     $manager->persist($commentaire);
                     $manager->flush();
