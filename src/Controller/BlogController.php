@@ -6,13 +6,14 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
+use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
@@ -213,6 +214,22 @@ class BlogController extends AbstractController
         return $this->render("blog/create.html.twig", [
             'formArticle' => $form->createView(),
             'editMode' => $article->getId() !== null
+        ]);
+    }
+
+    /**
+     * @Route("recherche", name="recherche")
+     */
+    public function rechercher(Request $request, EntityManagerInterface $manager)
+    {
+        $repo = $this->getDoctrine()->getRepository(article::class);
+        $articles = $repo->findAll();
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findOneByRechercher('Do');
+        
+        return $this->render('blog/recherche.html.twig', [
+            'controller_name' => 'BlogController',
+            'articles' => $articles,
+            'categories' => $categories
         ]);
     }
 }

@@ -48,4 +48,18 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    // /**
+    //  * @return Category[] Returns an array of Category objects
+    //  */
+    public function findOneByrechercher($key)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.title LIKE :key')
+            ->setParameter('key', '%' . $key . '%')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
 }
