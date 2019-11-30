@@ -4,21 +4,51 @@
 
 {% block body %}
 
-<div class = "jumbotron">
-    <h1 style="text-align:center"><mark>Les catégories</mark></h1>
-    </br>
+<div class = "jumbotron" style="background-color:cyan">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                {{ form_start(formRecherche) }}
+
+                {{ form_row(formRecherche.categoryArticle, {'attr': {'placeholder': "Occurrence d'une catégorie"}}) }}
+                
+                <button type="submit" class="btn btn-info">Recherche</button>
+
+                {{ form_end(formRecherche) }}
+            </div>   
+            <div class="col"> 
+                <section class='categories'>
+                    <h3>Liste des catégories recherchées</h3>
+                    {%for category in categories %}
+                    <category>
+                        <ul>
+                            <li>
+                                <p>{{ category.title }}</p>
+                            </li>
+                        </ul>
+                    </category>
+                    {% endfor%}
+                </section>  
+            </div>
+        </div>
+    </div>
+</div>
+    <hr>
+<div>
     <section class='categories'>
-        {%for category in categories %}
+    <h1 style="text-align:center"><strong>Les catégories :</strong></h1>
+        {%for category in cats %}
         <category>
             <ul>
                 <li>
                     <h2>{{ category.title }}</h2>
-                    
+                    <h3>{{category.content}}</h3>
+                    <p>{{ category.description }}</p>
                 </li>
             </ul>
         </category>
         <hr>
         {% endfor%}
     </section>
-</div>
+</div>  
 {% endblock %}

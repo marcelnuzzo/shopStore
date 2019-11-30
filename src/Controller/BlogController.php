@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Recherche;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
 use App\Repository\CategoryRepository;
@@ -222,12 +223,37 @@ class BlogController extends AbstractController
      */
     public function rechercher(Request $request, EntityManagerInterface $manager)
     {
-        $repo = $this->getDoctrine()->getRepository(article::class);
+        $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findOneByRechercher('Do');
-        
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findOneByRechercher('us');
+
+        $repo2 = $this->getDoctrine()->getRepository(Category::class);
+        $cats = $repo2->findAll();
+        //$repo1 = $this->getDoctrine()->getRepository(Recherche::class);
+        //$recherche = $repo1->findAll();
+        $recherche = new Recherche();
+        $form = $this->createFormBuilder($recherche)
+                     ->add('categoryArticle')
+                     ->getForm();
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+               //dd($request);
+               //dd($recherche->categoryArticle);
+               if(getCategoryArticle() == 'us')
+                    $this->addFlash('success', 'Catégorie trouvée');
+                else
+                    $this->addFlash('success', 'Catégorie non trouvée');
+    
+                return $this->redirectToRoute('recherche');
+            }
+
         return $this->render('blog/recherche.html.twig', [
             'controller_name' => 'BlogController',
+            'formRecherche' => $form->createView(),
+            'cats' => $cats,
             'articles' => $articles,
             'categories' => $categories
         ]);
