@@ -43,7 +43,7 @@ class Recherche
         return $this;
     }
 
-    public function getCategoryArticle(): ?string
+    public function getCategoryArticle(): ?int
     {
         return $this->categoryArticle;
     }
