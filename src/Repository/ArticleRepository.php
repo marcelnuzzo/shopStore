@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+
 use App\Entity\Category;
 use App\Entity\Article;
+use App\Entity\Recherche;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -49,6 +52,19 @@ class ArticleRepository extends ServiceEntityRepository
     }
     */
 
-    
+    // /**
+    //  * @return Article[] Returns an array of Article objects
+    //  */
+
+    public function findOneByRechercher($id,$key)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.category=:id and a.title LIKE :key')
+            ->setParameter('id', $id)
+            ->setParameter('key', '%' . $key . '%')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 
 }

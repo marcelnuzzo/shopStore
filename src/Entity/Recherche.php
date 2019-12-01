@@ -22,7 +22,7 @@ class Recherche
     private $titreArticle;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $categoryArticle;
 
@@ -48,7 +48,7 @@ class Recherche
         return $this->categoryArticle;
     }
 
-    public function setCategoryArticle(?string $categoryArticle): self
+    public function setCategoryArticle(?int $categoryArticle): self
     {
         $this->categoryArticle = $categoryArticle;
 

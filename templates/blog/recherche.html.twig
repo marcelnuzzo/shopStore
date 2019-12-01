@@ -11,23 +11,27 @@
                 {{ form_start(formRecherche) }}
 
                 {{ form_row(formRecherche.categoryArticle, {'attr': {'placeholder': "Occurrence d'une catégorie"}}) }}
-                
+                {{ form_row(formRecherche.titreArticle, {'attr': {'placeholder': "Occurrence d'un article"}}) }}
                 <button type="submit" class="btn btn-info">Recherche</button>
 
                 {{ form_end(formRecherche) }}
             </div>   
             <div class="col"> 
                 <section class='categories'>
-                    <h3>Liste des catégories recherchées</h3>
-                    {%for category in categories %}
-                    <category>
-                        <ul>
-                            <li>
-                                <p>{{ category.title }}</p>
-                            </li>
-                        </ul>
-                    </category>
-                    {% endfor%}
+                    <h3>Liste des articles pour la categorie recherchée :</h3>
+                    {% for recherche in recherches %}
+                    <ul>
+                        <li>
+                            <p>{{ recherche.title }}</p>
+                        </li>
+                        <li>
+                            <p>{{ recherche.content }}</p>
+                        </li>
+                        
+                            <p><img src="{{ recherche.image }}" alt="{{ recherche.image }}"></p>
+                       
+                    </ul>
+                     {% endfor %}
                 </section>  
             </div>
         </div>
@@ -37,7 +41,7 @@
 <div>
     <section class='categories'>
     <h1 style="text-align:center"><strong>Les catégories :</strong></h1>
-        {%for category in categoryArticle %}
+        {%for category in categories %}
         <category>
             <ul>
                 <li>

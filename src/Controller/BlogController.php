@@ -7,7 +7,7 @@ use App\Entity\Category;
 use App\Entity\Recherche;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
-use App\Repository\CategoryRepository;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BlogController extends AbstractController
 {
@@ -226,43 +227,37 @@ class BlogController extends AbstractController
            
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
+        $repo1 = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repo1->findAll();
 
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findOneByRechercher('us');
-
-        $repo2 = $this->getDoctrine()->getRepository(Category::class);
-        $categoryArticle = $repo2->findAll();
-        //$repo1 = $this->getDoctrine()->getRepository(Recherche::class);
-        //$recherche = $repo1->findAll();
-        $recherche = new Recherche();
-        $form = $this->createFormBuilder($recherche)
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+       
+        $recherches = new Recherche();
+        $form = $this->createFormBuilder($recherches)
                      ->add('categoryArticle')
+                     ->add('titreArticle')
                      ->getForm();
 
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()) {
-               //dd($request);
-               //dd($recherche->getCategoryArticle());
-               dd($categories);
-               if($recherche->getCategoryArticle() == $categories) {
-                    $this->addFlash('success', 'Catégorie trouvée');
-                    
-                }
-                else {
-                    $this->addFlash('danger', 'Catégorie non trouvée');
-                    
-                }
-                //dd($toto);
+                //dd($request);
+                $id = $form['categoryArticle']->getData();
+                $key = $form['titreArticle']->getData();
+                $recherches = $this->getDoctrine()->getRepository(Article::class)->findOneByRechercher($id, $key);  
+               
+                //$this->addFlash('danger', 'Catégorie non trouvée');
                 //dd($recherche->getCategoryArticle());
-                return $this->redirectToRoute('recherche');
+                
             }
 
         return $this->render('blog/recherche.html.twig', [
             'controller_name' => 'BlogController',
             'formRecherche' => $form->createView(),
-            'categoryArticle' => $categoryArticle,
+            'recherches' =>  $recherches,
             'articles' => $articles,
-            'categories' => $categories
+            'categories' => $categories,
+            'category' => $category
         ]);
     }
 }

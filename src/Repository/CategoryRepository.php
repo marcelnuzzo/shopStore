@@ -52,6 +52,7 @@ class CategoryRepository extends ServiceEntityRepository
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */
+    /*
     public function findOneByrechercher($key)
     {
         return $this->createQueryBuilder('a')
@@ -61,5 +62,5 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+    */
 }
