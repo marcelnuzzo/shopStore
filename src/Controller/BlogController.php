@@ -223,13 +223,14 @@ class BlogController extends AbstractController
      */
     public function rechercher(Request $request, EntityManagerInterface $manager)
     {
+           
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
 
         $categories = $this->getDoctrine()->getRepository(Category::class)->findOneByRechercher('us');
 
         $repo2 = $this->getDoctrine()->getRepository(Category::class);
-        $cats = $repo2->findAll();
+        $categoryArticle = $repo2->findAll();
         //$repo1 = $this->getDoctrine()->getRepository(Recherche::class);
         //$recherche = $repo1->findAll();
         $recherche = new Recherche();
@@ -241,19 +242,25 @@ class BlogController extends AbstractController
 
             if($form->isSubmitted() && $form->isValid()) {
                //dd($request);
-               //dd($recherche->categoryArticle);
-               if(getCategoryArticle() == 'us')
+               //dd($recherche->getCategoryArticle());
+               dd($categories);
+               if($recherche->getCategoryArticle() == $categories) {
                     $this->addFlash('success', 'Catégorie trouvée');
-                else
-                    $this->addFlash('success', 'Catégorie non trouvée');
-    
+                    
+                }
+                else {
+                    $this->addFlash('danger', 'Catégorie non trouvée');
+                    
+                }
+                //dd($toto);
+                //dd($recherche->getCategoryArticle());
                 return $this->redirectToRoute('recherche');
             }
 
         return $this->render('blog/recherche.html.twig', [
             'controller_name' => 'BlogController',
             'formRecherche' => $form->createView(),
-            'cats' => $cats,
+            'categoryArticle' => $categoryArticle,
             'articles' => $articles,
             'categories' => $categories
         ]);
