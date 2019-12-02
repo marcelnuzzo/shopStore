@@ -4,16 +4,22 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Recherche;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
+<<<<<<< HEAD
 use App\Entity\Recherche;
+=======
+use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
+>>>>>>> faaf23d57847bdd8b9e559ddaff2d8794309e902
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BlogController extends AbstractController
 {
@@ -217,39 +223,45 @@ class BlogController extends AbstractController
         ]);
     }
 
-    
-     /**
-     * @Route("blog/recherche", name="recherche")
+    /**
+     * @Route("recherche", name="recherche")
      */
-    public function recherche(ObjectManager $manager, Request $request) {
+    public function rechercher(Request $request, EntityManagerInterface $manager)
+    {
+           
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+        $repo1 = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repo1->findAll();
 
-        $repo = $this->getDoctrine()->getRepository(Category::class);
-        $category = $repo->findOneBySomeField('B');
-        $repo1 = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo1->findAll();
-
-        /*
-        $recherche = new Recherche();
-        $form = $this->createFormBuilder($recherche)
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+       
+        $recherches = new Recherche();
+        $form = $this->createFormBuilder($recherches)
                      ->add('categoryArticle')
+                     ->add('titreArticle')
                      ->getForm();
 
-                     $form->handleRequest($request);
-                if($form->isSubmitted() && $form->isValid()) {
-                    //$manager->persist($recherche);
-                    //$manager->flush();
-                    
-                    return $this->redirectToRoute('blog_recherche', ['id' => $category->getId()
-                    ]);  
-                }
-            */
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()) {
+                //dd($request);
+                $id = $form['categoryArticle']->getData();
+                $key = $form['titreArticle']->getData();
+                $recherches = $this->getDoctrine()->getRepository(Article::class)->findOneByRechercher($id, $key);  
+               
+                //$this->addFlash('danger', 'Catégorie non trouvée');
+                //dd($recherche->getCategoryArticle());
+                
+            }
+
         return $this->render('blog/recherche.html.twig', [
             'controller_name' => 'BlogController',
             'formRecherche' => $form->createView(),
-            'category' => $category,
-            'recherche' => $recherche,
-            'articles' => $articles
+            'recherches' =>  $recherches,
+            'articles' => $articles,
+            'categories' => $categories,
+            'category' => $category
         ]);
-
     }
 }
