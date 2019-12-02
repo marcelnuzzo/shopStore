@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formRecherche 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <div>
+        {{ form_start(formRecherche) }}
+        
+        {{ form_row(formRecherche.categoryArticle, {'attr': {'placeholder': "Categorie de l'article"}}) }}
+
+        <button type="submit" class="btn btn-success">chercher</button>
+        
+        {{ form_end(formRecherche) }}
+    </div>
+    <hr>
+    <section class='categories'>
+        {%for category in category %}
+        <category>
+            <ul>
+                <li>
+                    <p>{{ category.title }}</p>
+                    <p>{{category.content}}</p>
+                    <p>{{ category.description }}</p>
+                </li>
+            </ul>
+        </category>
+        <hr>
+        {% endfor%}
+    </section>
+    <section class='recherche'>
+        {%for category in recherche %}
+            <p>{{ category.title }}</p>
+            
+        {% endfor%}
+    </section>
+    
+{% endblock %}

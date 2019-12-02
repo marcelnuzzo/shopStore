@@ -6,6 +6,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
+use App\Entity\Recherche;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -214,5 +215,41 @@ class BlogController extends AbstractController
             'formArticle' => $form->createView(),
             'editMode' => $article->getId() !== null
         ]);
+    }
+
+    
+     /**
+     * @Route("blog/recherche", name="recherche")
+     */
+    public function recherche(ObjectManager $manager, Request $request) {
+
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+        $category = $repo->findOneBySomeField('B');
+        $repo1 = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo1->findAll();
+
+        /*
+        $recherche = new Recherche();
+        $form = $this->createFormBuilder($recherche)
+                     ->add('categoryArticle')
+                     ->getForm();
+
+                     $form->handleRequest($request);
+                if($form->isSubmitted() && $form->isValid()) {
+                    //$manager->persist($recherche);
+                    //$manager->flush();
+                    
+                    return $this->redirectToRoute('blog_recherche', ['id' => $category->getId()
+                    ]);  
+                }
+            */
+        return $this->render('blog/recherche.html.twig', [
+            'controller_name' => 'BlogController',
+            'formRecherche' => $form->createView(),
+            'category' => $category,
+            'recherche' => $recherche,
+            'articles' => $articles
+        ]);
+
     }
 }

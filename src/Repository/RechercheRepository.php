@@ -47,4 +47,23 @@ class RechercheRepository extends ServiceEntityRepository
         ;
     }
     */
+
+     // /**
+    //  * @return Recherche[] Returns an array of Recherche objects
+    //  */
+    public function findOneBySomeField($recherche): ?Recherche
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+            FROM Category p
+            WHERE title 
+            like %B%'
+        )->setParameter('categoryArticle', $categoryArticle);
+
+        return $query->getResult();
+        
+    }
+    
 }

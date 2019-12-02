@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Article;
+use App\Entity\Category;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -87,4 +89,32 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    /**
+     * @Route("/home/recherche", name="recherche")
+     */
+    /*
+    public function recherche($id, ObjectManager $manager, Request $request)
+    {
+        $recherche = new Recherche();
+        $form = $this->createFormBuilder($recherche)
+                     ->add('categieArticle')
+                     ->getForm();
+
+                     $form->handleRequest($request);
+
+                     if($form->isSubmitted() && $form->isValid()) {
+                        
+                        $manager->persist($recherche);
+                        $manager->flush();
+                
+                            return $this->redirectToRoute('home_recherche',  ['id' => $article->getId()
+                            ]);
+                    }
+        return $this->render('home/recherche.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+
+    }
+    */
 }
