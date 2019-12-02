@@ -7,12 +7,7 @@ use App\Entity\Category;
 use App\Entity\Recherche;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
-<<<<<<< HEAD
-use App\Entity\Recherche;
-=======
-use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
->>>>>>> faaf23d57847bdd8b9e559ddaff2d8794309e902
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
