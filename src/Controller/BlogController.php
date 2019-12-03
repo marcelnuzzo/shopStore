@@ -14,7 +14,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BlogController extends AbstractController
 {
@@ -259,4 +258,80 @@ class BlogController extends AbstractController
             'category' => $category
         ]);
     }
+
+    /**
+     * @Route("/catSport", name="catSport")
+     * @Route("/catReligion", name="catReligion")
+     * @Route("/catPolitique", name="catPolitique")
+     */
+    public function catSport(Request $request)
+    {
+        $currentRoute = $request->attributes->get('_route');
+        echo $currentRoute;
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+        
+        $title="";
+        if($currentRoute == "catSport")
+            $title = 'sport';
+        else if($currentRoute == "catReligion")
+            $title = 'religion';
+        else if($currentRoute == "catPolitique")
+            $title = "politique";
+        $categories = $this->getDoctrine()
+                        ->getRepository(Category::class)
+                        ->findByCatSport($title);
+        return $this->render('blog/catSport.html.twig', [
+            'controller_name' => 'BlogController',
+            'categories'=> $categories,
+            'articles'=> $articles,
+            'title' => $title
+        ]);
+    }
+
+    /**
+     * @Route("/catReligion", name="catReligion")
+     */
+    /*
+    public function catReligion()
+    {
+       
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+       
+        $title = 'religion';
+        $categories = $this->getDoctrine()
+                        ->getRepository(Category::class)
+                        ->findByCatSport($title);
+        return $this->render('blog/catReligion.html.twig', [
+            'controller_name' => 'BlogController',
+            'categories'=> $categories,
+            'articles'=> $articles,
+            'title' => $title
+        ]);
+    }
+    */
+
+    /**
+     * @Route("/catPolitique", name="catPolitique")
+     */
+    /*
+    public function catPolitique()
+    {
+       
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+       
+        $title = 'politique';
+        $categories = $this->getDoctrine()
+                        ->getRepository(Category::class)
+                        ->findByCatSport($title);
+        return $this->render('blog/catPolitique.html.twig', [
+            'controller_name' => 'BlogController',
+            'categories'=> $categories,
+            'articles'=> $articles,
+            'title' => $title
+        ]);
+    }
+    */
 }

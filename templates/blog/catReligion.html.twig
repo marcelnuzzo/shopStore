@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}/catégorie religion{% endblock %}
+
+{% block body %}
+
+<div class = "jumbotron">
+    <h1 style="text-align:center"><mark>Les catégories</mark></h1>
+    </br>
+    <section class='categories'>
+        {%for category in categories %}
+        <category>
+            <ul>
+                <li>
+                    <h2>{{ category.title }}</h2>
+                    <h3>{{category.content}}</h3>
+                    <p>{{ category.description }}</p>
+                </li>
+            </ul>
+        </category>
+        <hr>
+        {% endfor%}
+    </section>
+</div>
+<div>
+    
+</div>
+{% endblock %}
