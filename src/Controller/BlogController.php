@@ -264,7 +264,7 @@ class BlogController extends AbstractController
      * @Route("/catReligion", name="catReligion")
      * @Route("/catPolitique", name="catPolitique")
      */
-    public function catSport(Request $request)
+    public function catFilter(Request $request)
     {
         $currentRoute = $request->attributes->get('_route');
        
@@ -281,7 +281,7 @@ class BlogController extends AbstractController
         $categories = $this->getDoctrine()
                         ->getRepository(Category::class)
                         ->findByCatSport($title);
-        return $this->render('blog/catSport.html.twig', [
+        return $this->render('blog/catFilter.html.twig', [
             'controller_name' => 'BlogController',
             'categories'=> $categories,
             'articles'=> $articles,

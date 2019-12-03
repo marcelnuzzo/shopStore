@@ -123,11 +123,11 @@ a#cRetour.cVisible{
         <h5 class="text-uppercase">Footer Content</h5>
         <p>Here you can use rows and columns to organize your footer content.</p>
         <table class="table-bordered table-hover center-block">
-          <tr>
+          <tr style="color:white">
               <th>Titre</th>
           </tr>
           {%for article in articles | slice(0,length=5) %}
-          <tr>
+          <tr style="color:white">
               <td>{{ article.title }}</td>
           </tr>
           {% endfor %}
