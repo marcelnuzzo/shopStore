@@ -261,14 +261,23 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/catSport", name="catSport")
+     * @Route("/catReligion", name="catReligion")
+     * @Route("/catPolitique", name="catPolitique")
      */
-    public function catSport()
+    public function catSport(Request $request)
     {
-       
+        $currentRoute = $request->attributes->get('_route');
+        echo $currentRoute;
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
-       
-        $title = 'sport';
+        
+        $title="";
+        if($currentRoute == "catSport")
+            $title = 'sport';
+        else if($currentRoute == "catReligion")
+            $title = 'religion';
+        else if($currentRoute == "catPolitique")
+            $title = "politique";
         $categories = $this->getDoctrine()
                         ->getRepository(Category::class)
                         ->findByCatSport($title);
@@ -283,6 +292,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/catReligion", name="catReligion")
      */
+    /*
     public function catReligion()
     {
        
@@ -300,10 +310,12 @@ class BlogController extends AbstractController
             'title' => $title
         ]);
     }
+    */
 
     /**
      * @Route("/catPolitique", name="catPolitique")
      */
+    /*
     public function catPolitique()
     {
        
@@ -321,4 +333,5 @@ class BlogController extends AbstractController
             'title' => $title
         ]);
     }
+    */
 }
