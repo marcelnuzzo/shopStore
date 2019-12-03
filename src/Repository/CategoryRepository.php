@@ -49,23 +49,23 @@ class CategoryRepository extends ServiceEntityRepository
     }
     */
     
-    /*
-    public function findByCatSport($id)
+    
+    public function findByCatSport($title)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.category=:id and c.category.title=:sport')
-            ->setParameter('id', $id)
+            ->andWhere('c.title=:title')
+            ->setParameter('title', $title)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     // /**
     // * @return Category[]
     // */
-    
+    /*
     public function findByCatSport($title)
     {
         $entityManager = $this->getEntityManager();
@@ -79,5 +79,5 @@ class CategoryRepository extends ServiceEntityRepository
         // returns an array of Product objects
         return $query->getResult();
     }
-    
+    */
 }
