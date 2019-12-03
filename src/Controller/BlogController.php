@@ -267,7 +267,7 @@ class BlogController extends AbstractController
     public function catSport(Request $request)
     {
         $currentRoute = $request->attributes->get('_route');
-        echo $currentRoute;
+       
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
         
@@ -289,49 +289,4 @@ class BlogController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/catReligion", name="catReligion")
-     */
-    /*
-    public function catReligion()
-    {
-       
-        $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo->findAll();
-       
-        $title = 'religion';
-        $categories = $this->getDoctrine()
-                        ->getRepository(Category::class)
-                        ->findByCatSport($title);
-        return $this->render('blog/catReligion.html.twig', [
-            'controller_name' => 'BlogController',
-            'categories'=> $categories,
-            'articles'=> $articles,
-            'title' => $title
-        ]);
-    }
-    */
-
-    /**
-     * @Route("/catPolitique", name="catPolitique")
-     */
-    /*
-    public function catPolitique()
-    {
-       
-        $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo->findAll();
-       
-        $title = 'politique';
-        $categories = $this->getDoctrine()
-                        ->getRepository(Category::class)
-                        ->findByCatSport($title);
-        return $this->render('blog/catPolitique.html.twig', [
-            'controller_name' => 'BlogController',
-            'categories'=> $categories,
-            'articles'=> $articles,
-            'title' => $title
-        ]);
-    }
-    */
 }
