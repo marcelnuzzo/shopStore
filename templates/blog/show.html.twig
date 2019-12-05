@@ -19,6 +19,7 @@
 </div>
        </br> 
      <div>
+          {% if app.user %}
           <h1 style ="text-align:center">Création d'un commentaire</h1>
 
           {{ form_start(formCommentaire) }} 
@@ -30,6 +31,10 @@
                <button type="submit" class="btn btn-success">Créer un commentaire</button>
           </div>
           {{ form_end(formCommentaire) }}
+          {% else %}
+               <h2>Vous ne pouvez pas poster de commentaires si vous n'êtes pas connecté !</h2>
+               <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>
+          {% endif %}
      </div> 
      </br>  
        <div>

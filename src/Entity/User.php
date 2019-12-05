@@ -5,10 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"name"}, message="There is already an account with this name")
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
 {
@@ -21,11 +22,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=50,  minMessage = "Votre nom est trop court", maxMessage = "Votre nom est trop long")
      */
-    private $name;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $mail;
 
@@ -35,28 +38,35 @@ class User implements UserInterface
     private $login;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
+    * @ORM\Column(type="string", length=255)
+    */
     private $roles;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, minMessage = "Votre mot de passe doit faire minimun 2 caractères")
+     * @Assert\EqualTo(propertyPath="confirm_password")
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message = "le mot de passe doit être le même que dans password")
+     */
+    public $confirm_password;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getUsername(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
-    public function setName(string $name): self
+    public function setUsername(string $username): self
     {
-        $this->name = $name;
+        $this->username = $username;
 
         return $this;
     }
@@ -118,7 +128,7 @@ class User implements UserInterface
     {
         return ['ROLE_ADMIN'];
     }  
-
+    */
     /**
      * eraseCredentials
      *
@@ -128,7 +138,6 @@ class User implements UserInterface
     {
         
     }
-
 
     /**
      * getSalt
@@ -147,9 +156,10 @@ class User implements UserInterface
         {
             return serialize([
                 $this->id,
-                $this->name,
+                $this->username,
                 $this->login,
                 $this->password,
+                $this->confirm_password,
                 // see section on salt below
                 // $this->salt,
             ]);
@@ -167,9 +177,10 @@ class User implements UserInterface
         {
             list (
                 $this->id,
-                $this->name,
+                $this->username,
                 $this->login,
                 $this->password,
+                $this->confirm_password,
                 // see section on salt below
                 // $this->salt
             ) = unserialize($serialized, ['allowed_classes' => false]);

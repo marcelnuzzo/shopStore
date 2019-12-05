@@ -7,9 +7,10 @@ use App\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
@@ -31,7 +32,7 @@ class SecurityController extends AbstractController
     * @Route("security/formUser", name="security_formUser")
     * 
     */
-    public function formUser(Request $request, EntityManagerInterface $manager)
+    public function formUser(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
@@ -40,21 +41,23 @@ class SecurityController extends AbstractController
         
 
         $form = $this->createFormBuilder($user)
-                     ->add('name')
+                     ->add('username')
                      ->add('mail')
                      ->add('login')
-                     ->add('mot_de_passe', PasswordType::class)
+                     ->add('password', PasswordType::class)
+                     ->add('confirm_password', PasswordType::class)
                      ->getForm();
                      
            
                 $form->handleRequest($request);
                
                 if($form->isSubmitted() && $form->isValid()) {
-                    
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+                    $user->setPassword($hash);
                     $manager->persist($user);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_utilisateur');
+                        return $this->redirectToRoute('security_login');
                 }
 
         return $this->render('security/formUser.html.twig', [
@@ -63,4 +66,17 @@ class SecurityController extends AbstractController
             'formUser' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/connexion", name="security_login")
+     */
+    public function login() {
+        return $this->render('security/login.html.twig');
+    }
+
+    /**
+     * @Route("/deconnexion", name="security_logout")
+     */
+    public function logout() {}
+    
 }

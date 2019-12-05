@@ -12,10 +12,11 @@
     
         {{ form_start(formUser) }}
 
-        {{ form_row(formUser.name, {'attr': {'placeholder': "Nom de l' utilisateur"}}) }}
+        {{ form_row(formUser.username, {'attr': {'placeholder': "Nom de l' utilisateur"}}) }}
         {{ form_row(formUser.mail, {'attr': {'placeholder': "Mail de l'utilisateur"}}) }}
         {{ form_row(formUser.login, {'attr': {'placeholder': "Login de l'utilisateur"}}) }}
         {{ form_row(formUser.password, {'attr': {'placeholder': "Mot de passe de l'utilisateur"}}) }}
+        {{ form_row(formUser.confirm_password, {'attr': {'placeholder': "Confirmation du mot de passe"}}) }}
 
         <button type="submit" class="btn btn-success">Enregistrer</button>
 
