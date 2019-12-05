@@ -6,13 +6,11 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
 use App\Entity\Utilisateur;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -94,7 +92,7 @@ class AdminController extends AbstractController
     * @Route("/admin/newCat", name="admin_createCat")
     * 
     */
-    public function formulaireCat(Request $request, ObjectManager $manager, Category $category = null)
+    public function formulaireCat(Request $request, EntityManagerInterface $manager, Category $category = null)
     {
         if(!$category) {
             $category = new Category();
@@ -130,7 +128,7 @@ class AdminController extends AbstractController
     * 
     * @Route("/admin/editionCat/{id}", name="admin_editCat")
     */
-    public function formulaireCat2(Request $request, ObjectManager $manager, Category $category = null)
+    public function formulaireCat2(Request $request, EntityManagerInterface $manager, Category $category = null)
     {
         if(!$category) {
             $category = new Category();
@@ -167,7 +165,7 @@ class AdminController extends AbstractController
     * @Route("/admin/newCom", name="admin_createCom")
     * 
     */
-    public function formulaireCom(Article $article = null, Request $request, ObjectManager $manager, Commentaire $commentaire = null)
+    public function formulaireCom(Article $article = null, Request $request, EntityManagerInterface $manager, Commentaire $commentaire = null)
     {
         if(!$commentaire) {
             $commentaire = new Commentaire();
@@ -208,7 +206,7 @@ class AdminController extends AbstractController
     * 
     * @Route("/admin/editionCom/{id}", name="admin_editCom")
     */
-    public function formulaireCom1(Article $article = null, Request $request, ObjectManager $manager, Commentaire $commentaire = null)
+    public function formulaireCom1(Article $article = null, Request $request, EntityManagerInterface $manager, Commentaire $commentaire = null)
     {    
         $form = $this->createFormBuilder($commentaire)
                      ->add('author')
@@ -246,7 +244,7 @@ class AdminController extends AbstractController
     * @Route("/admin/newUti", name="admin_createUti")
     * 
     */
-    public function formulaireUti(Request $request, ObjectManager $manager, Utilisateur $utilisateur = null)
+    public function formulaireUti(Request $request, EntityManagerInterface $manager, Utilisateur $utilisateur = null)
     {
         if(!$utilisateur) {
             $utilisateur = new Utilisateur();
@@ -290,7 +288,7 @@ class AdminController extends AbstractController
     * 
     * @Route("/admin/editionUti/{id}", name="admin_editUti")
     */
-    public function formulaireUti1(Request $request, ObjectManager $manager, Utilisateur $utilisateur = null)
+    public function formulaireUti1(Request $request, EntityManagerInterface $manager, Utilisateur $utilisateur = null)
     {
         if(!$utilisateur) {
             $utilisateur = new Utilisateur();
@@ -335,7 +333,7 @@ class AdminController extends AbstractController
      * @Route("/admin/newArt", name="admin_createArt")
      * 
      */
-    public function formArt(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
+    public function formArt(Article $article = null, Category $category = null, Request $request, EntityManagerInterface $manager)
     {
         if(!$article) {
             $article = new Article();
@@ -382,7 +380,7 @@ class AdminController extends AbstractController
      * 
      * @Route("/admin/editionArt/{id}", name="admin_editArt")
      */
-    public function formArtarticle1 (Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
+    public function formArtarticle1 (Article $article = null, Category $category = null, Request $request, EntityManagerInterface $manager)
     {
        
         $form = $this->createFormBuilder($article)
@@ -424,7 +422,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_article/{id}/deleteArt", name="admin_deleteArt")
      */
-    public function deleteArt($id, ObjectManager $Manager, Request $request)
+    public function deleteArt($id, EntityManagerInterface $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $article = $repo->find($id);
@@ -439,7 +437,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_categorie/{id}/deleteCat", name="admin_deleteCat")
      */
-    public function deleteCat($id, ObjectManager $Manager, Request $request)
+    public function deleteCat($id, EntityManagerInterface $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Category::class);
         $category = $repo->find($id);
@@ -454,7 +452,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_commentaire/{id}/deleteCom", name="admin_deleteCom")
      */
-    public function deleteCom($id, ObjectManager $Manager, Request $request)
+    public function deleteCom($id, EntityManagerInterface $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Commentaire::class);
         $comment = $repo->find($id);
@@ -468,7 +466,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_utilisateur/{id}/deleteUti", name="admin_deleteUti")
      */
-    public function deleteUti($id, ObjectManager $Manager, Request $request)
+    public function deleteUti($id, EntityManagerInterface $Manager, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateur = $repo->find($id);

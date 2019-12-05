@@ -10,7 +10,6 @@ use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +41,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog1/{id}", name="blog_show")
      */
-    public function show($id, Request $request, ObjectManager $manager)
+    public function show($id, Request $request, EntityManagerInterface $manager)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $repo1 = $this->getDoctrine()->getRepository(Article::class);
@@ -180,7 +179,7 @@ class BlogController extends AbstractController
      * @Route("/blog/new", name="blog_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
      */
-    public function form(Article $article = null, Category $category = null, Request $request, ObjectManager $manager)
+    public function form(Article $article = null, Category $category = null, Request $request, EntityManagerInterface $manager)
     {
         if(!$article) {
             $article = new Article();
@@ -220,7 +219,7 @@ class BlogController extends AbstractController
     /**
      * @Route("recherche", name="recherche")
      */
-    public function rechercher(Request $request, EntityManagerInterface $manager)
+    public function rechercher(Request $request)
     {
            
         $repo = $this->getDoctrine()->getRepository(Article::class);
