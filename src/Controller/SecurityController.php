@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/security", name="security")
+     * @Route("/security", name="index_index")
      */
     public function index()
     {

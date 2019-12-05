@@ -147,7 +147,7 @@ class User implements UserInterface
         {
             return serialize([
                 $this->id,
-                $this->user,
+                $this->name,
                 $this->login,
                 $this->password,
                 // see section on salt below
@@ -167,7 +167,7 @@ class User implements UserInterface
         {
             list (
                 $this->id,
-                $this->user,
+                $this->name,
                 $this->login,
                 $this->password,
                 // see section on salt below
