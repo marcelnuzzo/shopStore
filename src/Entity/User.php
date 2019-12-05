@@ -37,6 +37,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $roles;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $password;
 
     public function getId(): ?int
@@ -92,69 +97,81 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     /**
-           * getRoles
-           *
-           * @return array['ROLE_USER']
-           */
-         /* public function getRoles()
-          {
-              return ['ROLE_ADMIN'];
-          }  
-      
-          /**
-           * eraseCredentials
-           *
-           * @return void
-           */
-          public function eraseCredentials()
-          {
-              
-          }
-      
-      
-          /**
-           * getSalt
-           *
-           * @return string | null
-           */
-          public function getSalt()
-          {
-              return null;
-      
-          }
+     * getRoles
+     *
+     * @return array['ROLE_USER']
+     */
+    /* public function getRoles()
+    {
+        return ['ROLE_ADMIN'];
+    }  
+
+    /**
+     * eraseCredentials
+     *
+     * @return void
+     */
+    public function eraseCredentials()
+    {
+        
+    }
+
+
+    /**
+     * getSalt
+     *
+     * @return string | null
+     */
+    public function getSalt()
+    {
+        return null;
+
+    }
       
           
-      	/** @see \Serializable::serialize() */
-          public function serialize()
-          {
-              return serialize([
-                  $this->id,
-                  $this->user,
-                  $this->login,
-                  $this->password,
-                  // see section on salt below
-                  // $this->salt,
-              ]);
-          }
+    /** @see \Serializable::serialize() */
+        public function serialize()
+        {
+            return serialize([
+                $this->id,
+                $this->user,
+                $this->login,
+                $this->password,
+                // see section on salt below
+                // $this->salt,
+            ]);
+        }
       
        
-          /**
-           * unserialize
-           *
-           * @param  mixed $serialized
-           *
-           * @return void
-           */
-          public function unserialize($serialized)
-          {
-              list (
-                  $this->id,
-                  $this->user,
-                  $this->login,
-                  $this->password,
-                  // see section on salt below
-                  // $this->salt
-              ) = unserialize($serialized, ['allowed_classes' => false]);
-          }
+        /**
+         * unserialize
+         *
+         * @param  mixed $serialized
+         *
+         * @return void
+         */
+        public function unserialize($serialized)
+        {
+            list (
+                $this->id,
+                $this->user,
+                $this->login,
+                $this->password,
+                // see section on salt below
+                // $this->salt
+            ) = unserialize($serialized, ['allowed_classes' => false]);
+        }
 }

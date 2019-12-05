@@ -28,7 +28,7 @@ class SecurityController extends AbstractController
 
    
     /**
-    * @Route("formUser", name="security_formUser")
+    * @Route("security/formUser", name="security_formUser")
     * 
     */
     public function formUser(Request $request, EntityManagerInterface $manager)
@@ -44,7 +44,6 @@ class SecurityController extends AbstractController
                      ->add('mail')
                      ->add('login')
                      ->add('mot_de_passe', PasswordType::class)
-
                      ->getForm();
                      
            
