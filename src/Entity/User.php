@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"name"}, message="There is already an account with this name")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -88,4 +91,70 @@ class User
 
         return $this;
     }
+
+    /**
+           * getRoles
+           *
+           * @return array['ROLE_USER']
+           */
+         /* public function getRoles()
+          {
+              return ['ROLE_ADMIN'];
+          }  
+      
+          /**
+           * eraseCredentials
+           *
+           * @return void
+           */
+          public function eraseCredentials()
+          {
+              
+          }
+      
+      
+          /**
+           * getSalt
+           *
+           * @return string | null
+           */
+          public function getSalt()
+          {
+              return null;
+      
+          }
+      
+          
+      	/** @see \Serializable::serialize() */
+          public function serialize()
+          {
+              return serialize([
+                  $this->id,
+                  $this->user,
+                  $this->login,
+                  $this->password,
+                  // see section on salt below
+                  // $this->salt,
+              ]);
+          }
+      
+       
+          /**
+           * unserialize
+           *
+           * @param  mixed $serialized
+           *
+           * @return void
+           */
+          public function unserialize($serialized)
+          {
+              list (
+                  $this->id,
+                  $this->user,
+                  $this->login,
+                  $this->password,
+                  // see section on salt below
+                  // $this->salt
+              ) = unserialize($serialized, ['allowed_classes' => false]);
+          }
 }

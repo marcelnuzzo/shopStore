@@ -1,10 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SecurityController!{% endblock %}
+{% block title %}formUser{% endblock %}
+
+{% form_theme formUser 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
+    
+        <div class="jumbotron" style="background-color:cyan">
+            <h1 style ="text-align:center">Création d'un utilisateur</h1>
+        </div>
+    
+        {{ form_start(formUser) }}
 
+        {{ form_row(formUser.name, {'attr': {'placeholder': "Nom de l' utilisateur"}}) }}
+        {{ form_row(formUser.mail, {'attr': {'placeholder': "Mail de l'utilisateur"}}) }}
+        {{ form_row(formUser.login, {'attr': {'placeholder': "Login de l'utilisateur"}}) }}
+        {{ form_row(formUser.password, {'attr': {'placeholder': "Mot de passe de l'utilisateur"}}) }}
 
+        <button type="submit" class="btn btn-success">Enregistrer</button>
 
-
+        {{ form_end(formUser) }}
+    
 {% endblock %}
