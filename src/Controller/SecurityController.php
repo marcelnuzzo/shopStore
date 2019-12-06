@@ -39,7 +39,6 @@ class SecurityController extends AbstractController
         
             $user = new User();
         
-
         $form = $this->createFormBuilder($user)
                      ->add('username')
                      ->add('mail')
