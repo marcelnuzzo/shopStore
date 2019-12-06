@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
+use App\Entity\User;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,6 +86,21 @@ class AdminController extends AbstractController
         return $this->render('admin/index_utilisateur.html.twig', [
             'controller_name' => 'AdminController',
             'utilisateurs'=> $utilisateurs
+        ]);
+    }
+
+     /**
+     * @Route("/index_user", name="index_user")
+     *  @Route("/admin/{id}/editUser", name="admin_editUser")
+     */
+    public function user()
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
+        
+        return $this->render('admin/index_user.html.twig', [
+            'controller_name' => 'AdminController',
+            'users'=> $users
         ]);
     }
 
@@ -365,7 +381,6 @@ class AdminController extends AbstractController
             $manager->persist($article);
            
             $manager->flush();
-            $this->addFlash('success', 'Article créé');
 
             return $this->redirectToRoute('index_article');
         }
@@ -420,9 +435,88 @@ class AdminController extends AbstractController
     }
 
     /**
+    * @Route("/admin/newUser", name="admin_createUser")
+    * 
+    */
+    public function formulaireUser(Request $request, EntityManagerInterface $manager, User $user = null)
+    {
+        if(!$user) {
+            $user = new User();
+        }
+
+        $form = $this->createFormBuilder($user)
+                     ->add('username')
+                     ->add('mail')
+                     ->add('login')
+                     ->add('password', PasswordType::class)
+                     ->add('roles')
+                     ->getForm();
+                     
+           
+                $form->handleRequest($request);
+               
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$user)
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($user);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_user');
+                }
+
+            return $this->render('admin/createUser.html.twig', [
+                'formUser' => $form->createView(),
+                'editMode' => $user->getId() !== null
+                ]);
+      
+    }
+
+    /**
+    * 
+    * @Route("/admin/editionUser/{id}", name="admin_editUser")
+    */
+    public function formulaireUser1(Request $request, EntityManagerInterface $manager, User $user = null)
+    {
+        if(!$user) {
+            $user = new User();
+        }
+
+        $form = $this->createFormBuilder($user)
+                    ->add('username')
+                    ->add('mail')
+                    ->add('login')
+                    ->add('password', PasswordType::class)
+                    ->add('roles')
+                    ->getForm();
+                     
+           
+                $form->handleRequest($request);
+               
+                if($form->isSubmitted() && $form->isValid()) {
+                    if(!$user->getId()) 
+                        $editMode = 0;
+                    else
+                        $editMode = 1;
+                    $manager->persist($user);
+                    $manager->flush();
+            
+                        return $this->redirectToRoute('index_user',  ['id' => $user->getId()
+                        ]);
+                }
+
+            return $this->render('admin/createUser.html.twig', [
+                'formUser' => $form->createView(),
+                'editMode' => $user->getId() !== null
+                ]);
+      
+    }
+
+    /**
      * @Route("/admin/index_article/{id}/deleteArt", name="admin_deleteArt")
      */
-    public function deleteArt($id, EntityManagerInterface $Manager, Request $request)
+    public function deleteArt($id, EntityManagerInterface $Manager)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $article = $repo->find($id);
@@ -437,7 +531,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_categorie/{id}/deleteCat", name="admin_deleteCat")
      */
-    public function deleteCat($id, EntityManagerInterface $Manager, Request $request)
+    public function deleteCat($id, EntityManagerInterface $Manager)
     {
         $repo = $this->getDoctrine()->getRepository(Category::class);
         $category = $repo->find($id);
@@ -452,7 +546,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_commentaire/{id}/deleteCom", name="admin_deleteCom")
      */
-    public function deleteCom($id, EntityManagerInterface $Manager, Request $request)
+    public function deleteCom($id, EntityManagerInterface $Manager)
     {
         $repo = $this->getDoctrine()->getRepository(Commentaire::class);
         $comment = $repo->find($id);
@@ -466,7 +560,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/index_utilisateur/{id}/deleteUti", name="admin_deleteUti")
      */
-    public function deleteUti($id, EntityManagerInterface $Manager, Request $request)
+    public function deleteUti($id, EntityManagerInterface $Manager)
     {
         $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateur = $repo->find($id);
@@ -474,6 +568,20 @@ class AdminController extends AbstractController
         $Manager->flush();
         
         return $this->redirectToRoute('index_utilisateur');
+       
+    }
+
+    /**
+     * @Route("/admin/index_user/{id}/deleteUser", name="admin_deleteUser")
+     */
+    public function deleteUser($id, EntityManagerInterface $Manager)
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $user = $repo->find($id);
+        $Manager->remove($user);
+        $Manager->flush();
+        
+        return $this->redirectToRoute('index_user');
        
     }
 

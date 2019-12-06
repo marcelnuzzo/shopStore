@@ -37,10 +37,10 @@ class User implements UserInterface
      */
     private $login;
 
-    /**
-    * @ORM\Column(type="string", length=255)
-    */
-    private $roles;
+    // /**
+    // * @ORM\Column(type="string", length=255)
+    // */
+    // private $roles;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -114,21 +114,18 @@ class User implements UserInterface
     }
     */
 
+    /*
     public function setRoles(string $roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
-
-    /**
-    * getRoles
-    *
-    * @return array['ROLE_USER']
     */
+    
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return ['ROLE_USER'];
     }  
     
     
@@ -161,7 +158,6 @@ class User implements UserInterface
                 $this->id,
                 $this->username,
                 $this->login,
-                $this->roles,
                 $this->password,
                 $this->confirm_password,
                 // see section on salt below
@@ -183,7 +179,6 @@ class User implements UserInterface
                 $this->id,
                 $this->username,
                 $this->login,
-                $this->roles,
                 $this->password,
                 $this->confirm_password,
                 // see section on salt below

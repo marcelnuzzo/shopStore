@@ -5,3 +5,4 @@ easy_admin:
          - App\Entity\Category
          - App\Entity\Commentaire
          - App\Entity\Utilisateur
+         - App\Entity\User
