@@ -107,10 +107,12 @@ class User implements UserInterface
         return $this;
     }
 
+    /*
     public function getRoles(): ?string
     {
         return $this->roles;
     }
+    */
 
     public function setRoles(string $roles): self
     {
@@ -120,15 +122,16 @@ class User implements UserInterface
     }
 
     /**
-     * getRoles
-     *
-     * @return array['ROLE_USER']
-     */
-    /* public function getRoles()
+    * getRoles
+    *
+    * @return array['ROLE_USER']
+    */
+    public function getRoles()
     {
         return ['ROLE_ADMIN'];
     }  
-    */
+    
+    
     /**
      * eraseCredentials
      *
@@ -158,6 +161,7 @@ class User implements UserInterface
                 $this->id,
                 $this->username,
                 $this->login,
+                $this->roles,
                 $this->password,
                 $this->confirm_password,
                 // see section on salt below
@@ -179,6 +183,7 @@ class User implements UserInterface
                 $this->id,
                 $this->username,
                 $this->login,
+                $this->roles,
                 $this->password,
                 $this->confirm_password,
                 // see section on salt below

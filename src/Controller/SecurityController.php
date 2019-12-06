@@ -53,7 +53,9 @@ class SecurityController extends AbstractController
                
                 if($form->isSubmitted() && $form->isValid()) {
                     $hash = $encoder->encodePassword($user, $user->getPassword());
+
                     $user->setPassword($hash);
+                    
                     $manager->persist($user);
                     $manager->flush();
             
@@ -71,7 +73,12 @@ class SecurityController extends AbstractController
      * @Route("/connexion", name="security_login")
      */
     public function login() {
-        return $this->render('security/login.html.twig');
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
+        return $this->render('security/login.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     /**
