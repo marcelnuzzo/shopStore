@@ -88,7 +88,7 @@ a#cRetour.cVisible{
                     <li>
                         <a class="nav-link" href="{{path('security_formUser')}}">Inscription</a>
                     </li>
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('easyadmin')}}" target="blank" tabindex="-1" aria-disabled="true">Admin</a>
                     </li>
