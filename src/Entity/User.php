@@ -107,12 +107,13 @@ class User implements UserInterface
         return $this;
     }
 
-    /*
-    public function getRoles(): ?string
+    public function getRoles()
     {
+        if (empty($this->roles)) {
+            return ['ROLE_USER'];
+        }
         return $this->roles;
     }
-    */
 
     /*
     public function setRoles(string $roles): self
@@ -123,13 +124,14 @@ class User implements UserInterface
     }
     */
     
+    /*
     public function getRoles()
     {
         return ['ROLE_USER',
                 'ROLE_ADMIN'
         ];
     }  
-    
+    */
     
     /**
      * eraseCredentials

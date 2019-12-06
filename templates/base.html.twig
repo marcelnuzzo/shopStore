@@ -85,15 +85,10 @@ a#cRetour.cVisible{
                     <li>
                         <a class="nav-link" href="{{path('contact')}}">Contact<span class="sr-only">(current)</span></a>
                     </li>
-                    <li>
-                        <a class="nav-link" href="{{path('security_formUser')}}">Inscription</a>
-                    </li>
-                    {% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('easyadmin')}}" target="blank" tabindex="-1" aria-disabled="true">Admin</a>
                     </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('index_admin') }} ">Index admin</a>
                     </li>
@@ -101,6 +96,9 @@ a#cRetour.cVisible{
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                     {% if not app.user %}
+                      <li>
+                        <a class="nav-link" href="{{path('security_formUser')}}">Inscription</a>
+                      </li>
                       <li class="nav-item">
                           <a class="nav-link" href="{{ path('security_login') }} ">Connexion</a>
                       </li>
@@ -116,6 +114,13 @@ a#cRetour.cVisible{
                 </ul>
             </div>
         </nav>
+        {#
+        {% for message in app.flshes('success') %}
+          <div class="alert alert-success">
+            {{ message }}
+          </div>
+        {% endfor %}
+        #}
         <div class="container">
             {% block body %}{% endblock %}
         </div>
