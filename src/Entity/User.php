@@ -14,6 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface
 {
     /**
+     * @Assert\EqualTo(propertyPath="password", message = "le mot de passe doit être le même que dans password")
+     */
+    public $confirm_password;
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,12 +27,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=2, max=50,  minMessage = "Votre nom est trop court", maxMessage = "Votre nom est trop long")
+     * @Assert\NotNull(message="Le nom d'utilisateur ne peut pas être nul")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
+     * @Assert\Email(message = "Ce n'est pas une adresse e-mail valide")
+     * @Assert\NotNull(message="L'email ne peut pas être nul")
      */
     private $mail;
 
@@ -45,14 +51,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=2, minMessage = "Votre mot de passe doit faire minimun 2 caractères")
-     * @Assert\EqualTo(propertyPath="confirm_password")
      */
     private $password;
-
-    /**
-     * @Assert\EqualTo(propertyPath="password", message = "le mot de passe doit être le même que dans password")
-     */
-    public $confirm_password;
 
     public function getId(): ?int
     {
@@ -112,6 +112,7 @@ class User implements UserInterface
         if (empty($this->roles)) {
             return ['ROLE_USER'];
         }
+
         return $this->roles;
     }
 
@@ -123,63 +124,55 @@ class User implements UserInterface
         return $this;
     }
     */
-    
+
     /*
     public function getRoles()
     {
         return ['ROLE_USER',
                 'ROLE_ADMIN'
         ];
-    }  
+    }
     */
-    
+
     /**
-     * eraseCredentials
-     *
-     * @return void
+     * eraseCredentials.
      */
     public function eraseCredentials()
     {
-        
     }
 
     /**
-     * getSalt
+     * getSalt.
      *
      * @return string | null
      */
     public function getSalt()
     {
         return null;
-
     }
-      
-          
+
     /** @see \Serializable::serialize() */
-        public function serialize()
-        {
-            return serialize([
-                $this->id,
-                $this->username,
-                $this->login,
-                $this->password,
-                $this->confirm_password,
-                // see section on salt below
-                // $this->salt,
-            ]);
-        }
-      
-       
-        /**
-         * unserialize
-         *
-         * @param  mixed $serialized
-         *
-         * @return void
-         */
-        public function unserialize($serialized)
-        {
-            list (
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->login,
+            $this->password,
+            $this->confirm_password,
+            // see section on salt below
+            // $this->salt,
+        ]);
+    }
+
+    /**
+     * unserialize.
+     *
+     * @param mixed $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
                 $this->id,
                 $this->username,
                 $this->login,
@@ -188,5 +181,5 @@ class User implements UserInterface
                 // see section on salt below
                 // $this->salt
             ) = unserialize($serialized, ['allowed_classes' => false]);
-        }
+    }
 }
