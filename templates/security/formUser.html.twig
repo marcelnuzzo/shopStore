@@ -5,21 +5,27 @@
 {% form_theme formUser 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
-    
+     <div class="well">
         <div class="jumbotron" style="background-color:cyan">
             <h1 style ="text-align:center">Création d'un utilisateur</h1>
         </div>
-    
-        {{ form_start(formUser) }}
-
-        {{ form_row(formUser.username, {'attr': {'placeholder': "Nom de l' utilisateur"}}) }}
-        {{ form_row(formUser.mail, {'attr': {'placeholder': "Mail de l'utilisateur"}}) }}
-        {{ form_row(formUser.login, {'attr': {'placeholder': "Login de l'utilisateur"}}) }}
-        {{ form_row(formUser.password, {'attr': {'placeholder': "Mot de passe de l'utilisateur"}}) }}
-        {{ form_row(formUser.confirm_password, {'attr': {'placeholder': "Confirmation du mot de passe"}}) }}
-
-        <button type="submit" class="btn btn-success">Enregistrer</button>
-
+        <br>
+        {{ form_start(formUser, {'attr':{'novalidate': 'novalidate'}}) }}
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(formUser.username, {'attr': {'placeholder': "Nom de l' utilisateur"}}) }}
+                {{ form_row(formUser.mail, {'attr': {'placeholder': "Mail de l'utilisateur"}}) }}
+                {{ form_row(formUser.login, {'attr': {'placeholder': "Login de l'utilisateur"}}) }}
+            </div>
+            <div class="col-sm-6">
+            {{ form_row(formUser.password, {'attr': {'placeholder': "Mot de passe de l'utilisateur"}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {{form_row(formUser.save)}}
+            </div>
+        </div>
         {{ form_end(formUser) }}
-    
+    </div> 
 {% endblock %}
