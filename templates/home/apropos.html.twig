@@ -12,6 +12,15 @@
         <h1 style="text-align:center;color:blue">Page en construction !!!</h1>
     </div>
 </div>
+<label class="checkbox-inline">
+  <input type="checkbox" checked data-toggle="toggle"> First
+</label>
+<input id="toggle-one" checked type="checkbox">
+<script>
+  $(function() {
+    $('#toggle-one').bootstrapToggle();
+  })
+</script>
 <div class="list-group">
   <a href="{{ 'index_admin' }} " class="list-group-item list-group-item-action active btn btn-info">Admin</a>
   <a href="{{ path('blog') }} " class="list-group-item list-group-item-action">Articles</a>

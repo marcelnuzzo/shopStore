@@ -89,6 +89,7 @@ a#cRetour.cVisible{
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('easyadmin')}}" target="blank" tabindex="-1" aria-disabled="true">Admin</a>
                     </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('index_admin') }} ">Index admin</a>
                     </li>
@@ -126,6 +127,7 @@ a#cRetour.cVisible{
         </div>
         {% block javascripts %}{% endblock %}
         <script>
+        
             document.addEventListener('DOMContentLoaded', function() {
                 window.onscroll = function(ev) {
                     document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
