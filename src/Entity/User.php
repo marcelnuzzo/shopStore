@@ -32,10 +32,10 @@ class User implements UserInterface
      */
     private $mail;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $login;
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    // */
+    //private $roles;
 
     // /**
     // * @ORM\Column(type="string", length=255)
@@ -83,17 +83,19 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getLogin(): ?string
+    /*
+    public function getRoles(): ?string
     {
-        return $this->login;
+        return $this->roles;
     }
 
-    public function setLogin(string $login): self
+    public function setRoles(string $roles): self
     {
-        $this->login = $login;
+        $this->roles = $roles;
 
         return $this;
     }
+    */
 
     public function getPassword(): ?string
     {
@@ -107,6 +109,7 @@ class User implements UserInterface
         return $this;
     }
 
+    
     public function getRoles()
     {
         if (empty($this->roles)) {
@@ -114,6 +117,7 @@ class User implements UserInterface
         }
         return $this->roles;
     }
+    
 
     /*
     public function setRoles(string $roles): self
@@ -161,7 +165,6 @@ class User implements UserInterface
             return serialize([
                 $this->id,
                 $this->username,
-                $this->login,
                 $this->password,
                 $this->confirm_password,
                 // see section on salt below
@@ -182,7 +185,6 @@ class User implements UserInterface
             list (
                 $this->id,
                 $this->username,
-                $this->login,
                 $this->password,
                 $this->confirm_password,
                 // see section on salt below
