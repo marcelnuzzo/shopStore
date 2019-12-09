@@ -441,7 +441,6 @@ class AdminController extends AbstractController
                      ->add('mail')
                      ->add('login')
                      ->add('password', PasswordType::class)
-                     ->add('roles')
                      ->getForm();
                      
            
@@ -480,9 +479,7 @@ class AdminController extends AbstractController
                     ->add('mail')
                     ->add('login')
                     ->add('password', PasswordType::class)
-                    ->add('roles')
-                    ->getForm();
-                     
+                    ->getForm();                  
            
                 $form->handleRequest($request);
                
