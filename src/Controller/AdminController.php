@@ -19,18 +19,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin_index")
-     */
+    * @Route("/admin", name="admin_index")
+    */
     public function index()
     {
         return $this->render('admin/admin_index.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
-
+    
     /**
      * @Route("/admin_categorie", name="admin_categorie")
-     *  @Route("/admin/{id}/editCat", name="admin_editCat")
      */
     public function categorie()
     {
@@ -46,7 +45,6 @@ class AdminController extends AbstractController
 
      /**
      * @Route("/admin_article", name="admin_article")
-     *  
      */
     public function article()
     {
@@ -61,7 +59,6 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin_commentaire", name="admin_commentaire")
-     *  @Route("/admin/{id}/editCom", name="admin_editCom")
      */
     public function commentaire()
     {
@@ -76,7 +73,6 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/admin_utilisateur", name="admin_utilisateur")
-     *  @Route("/admin/{id}/editUti", name="admin_editUti")
      */
     public function utilisateur()
     {
@@ -91,7 +87,6 @@ class AdminController extends AbstractController
 
      /**
      * @Route("/admin_user", name="admin_user")
-     *  @Route("/admin/{id}/editUser", name="admin_editUser")
      */
     public function user()
     {
@@ -106,7 +101,6 @@ class AdminController extends AbstractController
 
     /**
     * @Route("/admin/newCat", name="admin_createCat")
-    * 
     */
     public function formulaireCat(Request $request, EntityManagerInterface $manager, Category $category = null)
     {
@@ -141,7 +135,6 @@ class AdminController extends AbstractController
     }
 
     /**
-    * 
     * @Route("/admin/editionCat/{id}", name="admin_editCat")
     */
     public function formulaireCat2(Request $request, EntityManagerInterface $manager, Category $category = null)
@@ -162,7 +155,7 @@ class AdminController extends AbstractController
                     if(!$category)
                         $editMode = 0;
                     else
-                        $editMode = 0;
+                        $editMode = 1;
                     $manager->persist($category);
                     $manager->flush();
             
@@ -179,7 +172,6 @@ class AdminController extends AbstractController
 
     /**
     * @Route("/admin/newCom", name="admin_createCom")
-    * 
     */
     public function formulaireCom(Article $article = null, Request $request, EntityManagerInterface $manager, Commentaire $commentaire = null)
     {
