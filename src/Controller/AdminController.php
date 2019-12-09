@@ -19,17 +19,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="index_admin")
+     * @Route("/admin", name="admin_index")
      */
     public function index()
     {
-        return $this->render('admin/index_admin.html.twig', [
+        return $this->render('admin/admin_index.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
 
     /**
-     * @Route("/index_categorie", name="index_categorie")
+     * @Route("/admin_categorie", name="admin_categorie")
      *  @Route("/admin/{id}/editCat", name="admin_editCat")
      */
     public function categorie()
@@ -38,14 +38,14 @@ class AdminController extends AbstractController
         
         $categories = $repo->findAll();
        
-        return $this->render('admin/index_categorie.html.twig', [
+        return $this->render('admin/admin_categorie.html.twig', [
             'controller_name' => 'AdminController',
             'categories'=> $categories
         ]);
     }
 
      /**
-     * @Route("/index_article", name="index_article")
+     * @Route("/admin_article", name="admin_article")
      *  
      */
     public function article()
@@ -53,14 +53,14 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
         
-        return $this->render('admin/index_article.html.twig', [
+        return $this->render('admin/admin_article.html.twig', [
             'controller_name' => 'AdminController',
             'articles'=> $articles
         ]);
     }
 
     /**
-     * @Route("/index_commentaire", name="index_commentaire")
+     * @Route("/admin_commentaire", name="admin_commentaire")
      *  @Route("/admin/{id}/editCom", name="admin_editCom")
      */
     public function commentaire()
@@ -68,14 +68,14 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Commentaire::class);
         $commentaires = $repo->findAll();
         
-        return $this->render('admin/index_commentaire.html.twig', [
+        return $this->render('admin/admin_commentaire.html.twig', [
             'controller_name' => 'AdminController',
             'commentaires'=> $commentaires
         ]);
     }
 
     /**
-     * @Route("/index_utilisateur", name="index_utilisateur")
+     * @Route("/admin_utilisateur", name="admin_utilisateur")
      *  @Route("/admin/{id}/editUti", name="admin_editUti")
      */
     public function utilisateur()
@@ -83,14 +83,14 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateurs = $repo->findAll();
         
-        return $this->render('admin/index_utilisateur.html.twig', [
+        return $this->render('admin/admin_utilisateur.html.twig', [
             'controller_name' => 'AdminController',
             'utilisateurs'=> $utilisateurs
         ]);
     }
 
      /**
-     * @Route("/index_user", name="index_user")
+     * @Route("/admin_user", name="admin_user")
      *  @Route("/admin/{id}/editUser", name="admin_editUser")
      */
     public function user()
@@ -98,7 +98,7 @@ class AdminController extends AbstractController
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findAll();
         
-        return $this->render('admin/index_user.html.twig', [
+        return $this->render('admin/admin_user.html.twig', [
             'controller_name' => 'AdminController',
             'users'=> $users
         ]);
@@ -130,7 +130,7 @@ class AdminController extends AbstractController
                     $manager->persist($category);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_categorie');
+                        return $this->redirectToRoute('admin_categorie');
                 }
 
                 return $this->render('admin/createCat.html.twig', [
@@ -166,7 +166,7 @@ class AdminController extends AbstractController
                     $manager->persist($category);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_categorie',  ['id' => $category->getId()
+                        return $this->redirectToRoute('admin_categorie',  ['id' => $category->getId()
                         ]);
                 }
 
@@ -208,7 +208,7 @@ class AdminController extends AbstractController
                     $manager->persist($commentaire);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_commentaire');
+                        return $this->redirectToRoute('admin_commentaire');
                 }
 
                 return $this->render('admin/createCom.html.twig', [
@@ -244,7 +244,7 @@ class AdminController extends AbstractController
                     $manager->persist($commentaire);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_commentaire',  ['id' => $commentaire->getId()
+                        return $this->redirectToRoute('admin_commentaire',  ['id' => $commentaire->getId()
                         ]);
                 }
 
@@ -290,7 +290,7 @@ class AdminController extends AbstractController
                     $manager->persist($utilisateur);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_utilisateur');
+                        return $this->redirectToRoute('admin_utilisateur');
                 }
 
             return $this->render('admin/createUti.html.twig', [
@@ -334,7 +334,7 @@ class AdminController extends AbstractController
                     $manager->persist($utilisateur);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_utilisateur',  ['id' => $utilisateur->getId()
+                        return $this->redirectToRoute('admin_utilisateur',  ['id' => $utilisateur->getId()
                         ]);
                 }
 
@@ -382,7 +382,7 @@ class AdminController extends AbstractController
            
             $manager->flush();
 
-            return $this->redirectToRoute('index_article');
+            return $this->redirectToRoute('admin_article');
         }
 
     return $this->render("admin/createArt.html.twig", [
@@ -424,7 +424,7 @@ class AdminController extends AbstractController
            
             $manager->flush();
 
-            return $this->redirectToRoute('index_article', ['id' => $article->getId()
+            return $this->redirectToRoute('admin_article', ['id' => $article->getId()
             ]);
         }
 
@@ -463,7 +463,7 @@ class AdminController extends AbstractController
                     $manager->persist($user);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_user');
+                        return $this->redirectToRoute('admin_user');
                 }
 
             return $this->render('admin/createUser.html.twig', [
@@ -502,7 +502,7 @@ class AdminController extends AbstractController
                     $manager->persist($user);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_user',  ['id' => $user->getId()
+                        return $this->redirectToRoute('admin_user',  ['id' => $user->getId()
                         ]);
                 }
 
@@ -514,7 +514,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/index_article/{id}/deleteArt", name="admin_deleteArt")
+     * @Route("/admin/admin_article/{id}/deleteArt", name="admin_deleteArt")
      */
     public function deleteArt($id, EntityManagerInterface $Manager)
     {
@@ -524,12 +524,12 @@ class AdminController extends AbstractController
         $Manager->remove($article);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_article');
+        return $this->redirectToRoute('admin_article');
        
     }
 
     /**
-     * @Route("/admin/index_categorie/{id}/deleteCat", name="admin_deleteCat")
+     * @Route("/admin/admin_categorie/{id}/deleteCat", name="admin_deleteCat")
      */
     public function deleteCat($id, EntityManagerInterface $Manager)
     {
@@ -539,12 +539,12 @@ class AdminController extends AbstractController
         $Manager->remove($category);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_categorie');
+        return $this->redirectToRoute('admin_categorie');
        
     }
 
     /**
-     * @Route("/admin/index_commentaire/{id}/deleteCom", name="admin_deleteCom")
+     * @Route("/admin/admin_commentaire/{id}/deleteCom", name="admin_deleteCom")
      */
     public function deleteCom($id, EntityManagerInterface $Manager)
     {
@@ -553,12 +553,12 @@ class AdminController extends AbstractController
         $Manager->remove($comment);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_commentaire');
+        return $this->redirectToRoute('admin_commentaire');
        
     }
 
     /**
-     * @Route("/admin/index_utilisateur/{id}/deleteUti", name="admin_deleteUti")
+     * @Route("/admin/admin_utilisateur/{id}/deleteUti", name="admin_deleteUti")
      */
     public function deleteUti($id, EntityManagerInterface $Manager)
     {
@@ -567,12 +567,12 @@ class AdminController extends AbstractController
         $Manager->remove($utilisateur);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_utilisateur');
+        return $this->redirectToRoute('admin_utilisateur');
        
     }
 
     /**
-     * @Route("/admin/index_user/{id}/deleteUser", name="admin_deleteUser")
+     * @Route("/admin/admin_user/{id}/deleteUser", name="admin_deleteUser")
      */
     public function deleteUser($id, EntityManagerInterface $Manager)
     {
@@ -581,7 +581,7 @@ class AdminController extends AbstractController
         $Manager->remove($user);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_user');
+        return $this->redirectToRoute('admin_user');
        
     }
 

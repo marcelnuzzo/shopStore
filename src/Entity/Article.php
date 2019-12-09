@@ -44,7 +44,7 @@ class Article
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url()
-     *@Assert\Image(
+     * @Assert\Image(
      *     minWidth = 200,
      *     maxWidth = 400,
      *     minHeight = 200,
