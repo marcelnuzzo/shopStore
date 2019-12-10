@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 
 class AdminController extends AbstractController
@@ -32,11 +34,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin_categorie", name="admin_categorie")
      */
-    public function categorie()
+    public function categorie(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Category::class);
         
-        $categories = $repo->findAll();
+        $categories = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
        
         return $this->render('admin/admin_categorie.html.twig', [
             'controller_name' => 'AdminController',
@@ -47,10 +53,14 @@ class AdminController extends AbstractController
      /**
      * @Route("/admin_article", name="admin_article")
      */
-    public function article()
+    public function article(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo->findAll();
+        $articles = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             15 /*limit per page*/
+        );
         
         return $this->render('admin/admin_article.html.twig', [
             'controller_name' => 'AdminController',
@@ -61,10 +71,14 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin_commentaire", name="admin_commentaire")
      */
-    public function commentaire()
+    public function commentaire(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Commentaire::class);
-        $commentaires = $repo->findAll();
+        $commentaires = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             15 /*limit per page*/
+        );
         
         return $this->render('admin/admin_commentaire.html.twig', [
             'controller_name' => 'AdminController',

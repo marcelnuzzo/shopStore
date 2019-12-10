@@ -5,8 +5,11 @@
 {% block body %}
 
 <div class = "jumbotron">
-    <h1 style="text-align:center"><mark>Articles</mark></h1>
+    <h1 id="haut" style="text-decoration:underline;color:blue;text-align:center">Liste des articles</h1>
     <a href="{{ path('home') }}" class="btn btn-info">Retour au menu principale</a> 
+</div>
+<div class="navigation">
+    {{ knp_pagination_render(articles) }}
 </div>
 <a class="btn btn-warning" style="color:white" href="{{ path('admin_createArt') }}" role="button" >Créer</a>
 <hr>
@@ -33,5 +36,16 @@
             <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteArt', {'id':article.id}) }} " role="button" >Supprimer</a></td>
         </tr>
     {% endfor %}
+    <div><a id="cRetour" class="cInvisible" href="#haut">page up</a></div>
 </table>
+<div class="navigation">
+    {{ knp_pagination_render(articles) }}
+</div>
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.onscroll = function(ev) {
+            document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
+        };
+    });
+</script>
 {% endblock %}

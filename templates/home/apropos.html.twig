@@ -3,26 +3,15 @@
 {% block title %}{{ parent() }}/apropos{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+
 <div class="jumbotron">
     <div class="example-wrapper">
         <h1 style="text-align:center;color:blue">Page en construction !!!</h1>
     </div>
 </div>
-<label class="checkbox-inline">
-  <input type="checkbox" checked data-toggle="toggle"> First
-</label>
-<input id="toggle-one" checked type="checkbox">
-<script>
-  $(function() {
-    $('#toggle-one').bootstrapToggle();
-  })
-</script>
+
 <div class="list-group">
-  <a href="{{ 'index_admin' }} " class="list-group-item list-group-item-action active btn btn-info">Admin</a>
+  <a href="{{ 'index_admin' }} " class="list-group-item list-group-item-action active btn btn-info">Liens divers</a>
   <a href="{{ path('blog') }} " class="list-group-item list-group-item-action">Articles</a>
   <a href="{{ path('cat') }} " class="list-group-item list-group-item-action">Catégories</a>
   <a href="{{ path('contact') }} " class="list-group-item list-group-item-action">Contact</a>
