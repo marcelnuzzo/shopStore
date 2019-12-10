@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
-use App\Entity\User;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class AdminController extends AbstractController
@@ -430,7 +431,7 @@ class AdminController extends AbstractController
     * @Route("/admin/newUser", name="admin_createUser")
     * 
     */
-    public function formulaireUser(Request $request, EntityManagerInterface $manager, User $user = null)
+    public function formulaireUser(UserPasswordEncoderInterface $encoder,Request $request, EntityManagerInterface $manager, User $user = null)
     {
         if(!$user) {
             $user = new User();
@@ -441,12 +442,16 @@ class AdminController extends AbstractController
                      ->add('mail')
                      ->add('login')
                      ->add('password', PasswordType::class)
+                     ->add('confirm_password', PasswordType::class)
                      ->getForm();
                      
            
                 $form->handleRequest($request);
                
                 if($form->isSubmitted() && $form->isValid()) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+
+                    $user->setPassword($hash);
                     if(!$user)
                         $editMode = 0;
                     else
@@ -468,7 +473,7 @@ class AdminController extends AbstractController
     * 
     * @Route("/admin/editionUser/{id}", name="admin_editUser")
     */
-    public function formulaireUser1(Request $request, EntityManagerInterface $manager, User $user = null)
+    public function formulaireUser1(UserPasswordEncoderInterface $encoder, Request $request, EntityManagerInterface $manager, User $user = null)
     {
         if(!$user) {
             $user = new User();
@@ -479,11 +484,15 @@ class AdminController extends AbstractController
                     ->add('mail')
                     ->add('login')
                     ->add('password', PasswordType::class)
-                    ->getForm();                  
+                    ->add('confirm_password', PasswordType::class)
+                    ->getForm();               
            
                 $form->handleRequest($request);
                
                 if($form->isSubmitted() && $form->isValid()) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+
+                    $user->setPassword($hash);
                     if(!$user->getId()) 
                         $editMode = 0;
                     else

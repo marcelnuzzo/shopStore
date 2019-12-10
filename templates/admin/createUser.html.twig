@@ -18,7 +18,8 @@
         {{ form_row(formUser.mail, {'attr': {'placeholder': "Mail du user"}}) }}
         {{ form_row(formUser.login, {'attr': {'placeholder': "Login du user"}}) }}
         {{ form_row(formUser.password, {'attr': {'placeholder': "Mot de passe du user"}}) }}
-
+        {{ form_row(formUser.confirm_password, {'attr': {'placeholder': "Confirmation du mot de passe"}}) }}
+        
         <button type="submit" class="btn btn-success">
             {% if editMode %}
                 Modifier
