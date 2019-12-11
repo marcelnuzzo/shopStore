@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Commentaire;
-use App\Entity\User;
 use App\Entity\Utilisateur;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,91 +14,101 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="index_admin")
-     */
+    * @Route("/admin", name="admin_index")
+    */
     public function index()
     {
-        return $this->render('admin/index_admin.html.twig', [
+        return $this->render('admin/admin_index.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
-
+    
     /**
-     * @Route("/index_categorie", name="index_categorie")
-     *  @Route("/admin/{id}/editCat", name="admin_editCat")
+     * @Route("/admin_categorie", name="admin_categorie")
      */
-    public function categorie()
+    public function categorie(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Category::class);
         
-        $categories = $repo->findAll();
+        $categories = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+            5 /*limit per page*/
+        );
        
-        return $this->render('admin/index_categorie.html.twig', [
+        return $this->render('admin/admin_categorie.html.twig', [
             'controller_name' => 'AdminController',
             'categories'=> $categories
         ]);
     }
 
      /**
-     * @Route("/index_article", name="index_article")
-     *  
+     * @Route("/admin_article", name="admin_article")
      */
-    public function article()
+    public function article(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
-        $articles = $repo->findAll();
+        $articles = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             15 /*limit per page*/
+        );
         
-        return $this->render('admin/index_article.html.twig', [
+        return $this->render('admin/admin_article.html.twig', [
             'controller_name' => 'AdminController',
             'articles'=> $articles
         ]);
     }
 
     /**
-     * @Route("/index_commentaire", name="index_commentaire")
-     *  @Route("/admin/{id}/editCom", name="admin_editCom")
+     * @Route("/admin_commentaire", name="admin_commentaire")
      */
-    public function commentaire()
+    public function commentaire(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(Commentaire::class);
-        $commentaires = $repo->findAll();
+        $commentaires = $paginator->paginate(
+            $repo->findAll(),
+            $request->query->getInt('page', 1), /*page number*/
+             15 /*limit per page*/
+        );
         
-        return $this->render('admin/index_commentaire.html.twig', [
+        return $this->render('admin/admin_commentaire.html.twig', [
             'controller_name' => 'AdminController',
             'commentaires'=> $commentaires
         ]);
     }
 
     /**
-     * @Route("/index_utilisateur", name="index_utilisateur")
-     *  @Route("/admin/{id}/editUti", name="admin_editUti")
+     * @Route("/admin_utilisateur", name="admin_utilisateur")
      */
     public function utilisateur()
     {
         $repo = $this->getDoctrine()->getRepository(Utilisateur::class);
         $utilisateurs = $repo->findAll();
         
-        return $this->render('admin/index_utilisateur.html.twig', [
+        return $this->render('admin/admin_utilisateur.html.twig', [
             'controller_name' => 'AdminController',
             'utilisateurs'=> $utilisateurs
         ]);
     }
 
      /**
-     * @Route("/index_user", name="index_user")
-     *  @Route("/admin/{id}/editUser", name="admin_editUser")
+     * @Route("/admin_user", name="admin_user")
      */
     public function user()
     {
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findAll();
         
-        return $this->render('admin/index_user.html.twig', [
+        return $this->render('admin/admin_user.html.twig', [
             'controller_name' => 'AdminController',
             'users'=> $users
         ]);
@@ -106,7 +116,6 @@ class AdminController extends AbstractController
 
     /**
     * @Route("/admin/newCat", name="admin_createCat")
-    * 
     */
     public function formulaireCat(Request $request, EntityManagerInterface $manager, Category $category = null)
     {
@@ -130,7 +139,7 @@ class AdminController extends AbstractController
                     $manager->persist($category);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_categorie');
+                        return $this->redirectToRoute('admin_categorie');
                 }
 
                 return $this->render('admin/createCat.html.twig', [
@@ -141,7 +150,6 @@ class AdminController extends AbstractController
     }
 
     /**
-    * 
     * @Route("/admin/editionCat/{id}", name="admin_editCat")
     */
     public function formulaireCat2(Request $request, EntityManagerInterface $manager, Category $category = null)
@@ -162,11 +170,11 @@ class AdminController extends AbstractController
                     if(!$category)
                         $editMode = 0;
                     else
-                        $editMode = 0;
+                        $editMode = 1;
                     $manager->persist($category);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_categorie',  ['id' => $category->getId()
+                        return $this->redirectToRoute('admin_categorie',  ['id' => $category->getId()
                         ]);
                 }
 
@@ -179,7 +187,6 @@ class AdminController extends AbstractController
 
     /**
     * @Route("/admin/newCom", name="admin_createCom")
-    * 
     */
     public function formulaireCom(Article $article = null, Request $request, EntityManagerInterface $manager, Commentaire $commentaire = null)
     {
@@ -208,7 +215,7 @@ class AdminController extends AbstractController
                     $manager->persist($commentaire);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_commentaire');
+                        return $this->redirectToRoute('admin_commentaire');
                 }
 
                 return $this->render('admin/createCom.html.twig', [
@@ -244,7 +251,7 @@ class AdminController extends AbstractController
                     $manager->persist($commentaire);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_commentaire',  ['id' => $commentaire->getId()
+                        return $this->redirectToRoute('admin_commentaire',  ['id' => $commentaire->getId()
                         ]);
                 }
 
@@ -290,7 +297,7 @@ class AdminController extends AbstractController
                     $manager->persist($utilisateur);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_utilisateur');
+                        return $this->redirectToRoute('admin_utilisateur');
                 }
 
             return $this->render('admin/createUti.html.twig', [
@@ -334,7 +341,7 @@ class AdminController extends AbstractController
                     $manager->persist($utilisateur);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_utilisateur',  ['id' => $utilisateur->getId()
+                        return $this->redirectToRoute('admin_utilisateur',  ['id' => $utilisateur->getId()
                         ]);
                 }
 
@@ -382,7 +389,7 @@ class AdminController extends AbstractController
            
             $manager->flush();
 
-            return $this->redirectToRoute('index_article');
+            return $this->redirectToRoute('admin_article');
         }
 
     return $this->render("admin/createArt.html.twig", [
@@ -424,7 +431,7 @@ class AdminController extends AbstractController
            
             $manager->flush();
 
-            return $this->redirectToRoute('index_article', ['id' => $article->getId()
+            return $this->redirectToRoute('admin_article', ['id' => $article->getId()
             ]);
         }
 
@@ -438,7 +445,7 @@ class AdminController extends AbstractController
     * @Route("/admin/newUser", name="admin_createUser")
     * 
     */
-    public function formulaireUser(Request $request, EntityManagerInterface $manager, User $user = null)
+    public function formulaireUser(UserPasswordEncoderInterface $encoder,Request $request, EntityManagerInterface $manager, User $user = null)
     {
         if(!$user) {
             $user = new User();
@@ -448,12 +455,16 @@ class AdminController extends AbstractController
                      ->add('username')
                      ->add('mail')
                      ->add('password', PasswordType::class)
+                     ->add('confirm_password', PasswordType::class)
                      ->getForm();
                      
            
                 $form->handleRequest($request);
                
                 if($form->isSubmitted() && $form->isValid()) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+
+                    $user->setPassword($hash);
                     if(!$user)
                         $editMode = 0;
                     else
@@ -461,7 +472,7 @@ class AdminController extends AbstractController
                     $manager->persist($user);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_user');
+                        return $this->redirectToRoute('admin_user');
                 }
 
             return $this->render('admin/createUser.html.twig', [
@@ -475,7 +486,7 @@ class AdminController extends AbstractController
     * 
     * @Route("/admin/editionUser/{id}", name="admin_editUser")
     */
-    public function formulaireUser1(Request $request, EntityManagerInterface $manager, User $user = null)
+    public function formulaireUser1(UserPasswordEncoderInterface $encoder, Request $request, EntityManagerInterface $manager, User $user = null)
     {
         if(!$user) {
             $user = new User();
@@ -485,12 +496,15 @@ class AdminController extends AbstractController
                     ->add('username')
                     ->add('mail')
                     ->add('password', PasswordType::class)
-                    ->getForm();
-                     
+                    ->add('confirm_password', PasswordType::class)
+                    ->getForm();               
            
                 $form->handleRequest($request);
                
                 if($form->isSubmitted() && $form->isValid()) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+
+                    $user->setPassword($hash);
                     if(!$user->getId()) 
                         $editMode = 0;
                     else
@@ -498,7 +512,7 @@ class AdminController extends AbstractController
                     $manager->persist($user);
                     $manager->flush();
             
-                        return $this->redirectToRoute('index_user',  ['id' => $user->getId()
+                        return $this->redirectToRoute('admin_user',  ['id' => $user->getId()
                         ]);
                 }
 
@@ -510,7 +524,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/index_article/{id}/deleteArt", name="admin_deleteArt")
+     * @Route("/admin/admin_article/{id}/deleteArt", name="admin_deleteArt")
      */
     public function deleteArt($id, EntityManagerInterface $Manager)
     {
@@ -520,12 +534,12 @@ class AdminController extends AbstractController
         $Manager->remove($article);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_article');
+        return $this->redirectToRoute('admin_article');
        
     }
 
     /**
-     * @Route("/admin/index_categorie/{id}/deleteCat", name="admin_deleteCat")
+     * @Route("/admin/admin_categorie/{id}/deleteCat", name="admin_deleteCat")
      */
     public function deleteCat($id, EntityManagerInterface $Manager)
     {
@@ -535,12 +549,12 @@ class AdminController extends AbstractController
         $Manager->remove($category);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_categorie');
+        return $this->redirectToRoute('admin_categorie');
        
     }
 
     /**
-     * @Route("/admin/index_commentaire/{id}/deleteCom", name="admin_deleteCom")
+     * @Route("/admin/admin_commentaire/{id}/deleteCom", name="admin_deleteCom")
      */
     public function deleteCom($id, EntityManagerInterface $Manager)
     {
@@ -549,12 +563,12 @@ class AdminController extends AbstractController
         $Manager->remove($comment);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_commentaire');
+        return $this->redirectToRoute('admin_commentaire');
        
     }
 
     /**
-     * @Route("/admin/index_utilisateur/{id}/deleteUti", name="admin_deleteUti")
+     * @Route("/admin/admin_utilisateur/{id}/deleteUti", name="admin_deleteUti")
      */
     public function deleteUti($id, EntityManagerInterface $Manager)
     {
@@ -563,12 +577,12 @@ class AdminController extends AbstractController
         $Manager->remove($utilisateur);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_utilisateur');
+        return $this->redirectToRoute('admin_utilisateur');
        
     }
 
     /**
-     * @Route("/admin/index_user/{id}/deleteUser", name="admin_deleteUser")
+     * @Route("/admin/admin_user/{id}/deleteUser", name="admin_deleteUser")
      */
     public function deleteUser($id, EntityManagerInterface $Manager)
     {
@@ -577,7 +591,7 @@ class AdminController extends AbstractController
         $Manager->remove($user);
         $Manager->flush();
         
-        return $this->redirectToRoute('index_user');
+        return $this->redirectToRoute('admin_user');
        
     }
 

@@ -80,4 +80,49 @@ class SecurityController extends AbstractController
      */
     public function logout() {}
     
+    /**
+    * @Route("security/formUser1", name="security_formUser1")
+    * 
+    */
+    public function formUser1(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, User $user = null)
+    {
+        //$username="";
+        $toto = $this->getUser();
+        //dd($user);
+/*
+        $user = $this->getDoctrine()
+                        ->getRepository(User::class)
+                        ->findByUser($username,$id);
+                        dd($user);
+*/
+
+        $form = $this->createFormBuilder($toto)
+                     ->add('username')
+                     ->add('mail')
+                     ->add('login')
+                     ->add('password', PasswordType::class)
+                     ->add('confirm_password', PasswordType::class)
+                     ->getForm();
+                     
+           
+                $form->handleRequest($request);
+               
+                if($form->isSubmitted() && $form->isValid()) {
+                    $hash = $encoder->encodePassword($user, $user->getPassword());
+
+                    $user->setPassword($hash);
+                    
+                    $manager->persist($user);
+                    $manager->flush();
+                    //$this->addFlash('success', 'Votre compte à bien été enregistré.');
+                        return $this->redirectToRoute('blog',['id' => $user->getId()
+                        ]);
+                }
+
+                return $this->render('security/formUser1.html.twig', [
+                    'controller_name' => 'SecurityController',
+                    'formUser' => $form->createView(),
+                    'toto' => $toto
+                ]);
+    }
 }

@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class = "jumbotron">
-    <h1 style="text-align:center"><mark>Users</mark></h1>
+    <h1 id="haut" style="text-decoration:underline;color:blue;text-align:center">Liste des users</h1>
     <a href="{{ path('home') }}" class="btn btn-info">Retour au menu principale</a> 
 </div>
 <a class="btn btn-warning" style="color:white" href="{{ path('admin_createUser') }}" role="button" >Créer</a>
@@ -24,7 +24,6 @@
             <td>{{ user.username }}</td>
             <td>{{ user.mail }}</td>
             <td>{{ user.password }}</td>
-            {# <!--<td>{{ user.roles }}</td>--> #}
             <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editUser', {'id':user.id}) }}" role="button" >Modifier</a></td>
             <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteUser', {'id':user.id}) }} " role="button" >Supprimer</a></td>
         </tr>
