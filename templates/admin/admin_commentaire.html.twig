@@ -1,0 +1,32 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Liste des commentaires!{% endblock %}
+
+{% block body %}
+
+<div class = "jumbotron">
+    <h1 style="text-align:center"><mark>Commentaire</mark></h1>
+    <a href="{{ path('home') }}" class="btn btn-info">Retour au menu principale</a> 
+</div>
+<a class="btn btn-warning" style="color:white" href="{{ path('admin_createCom') }}" role="button" >Créer</a>
+<table class="table table-striped table-bordered table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Auteur</th>
+        <th>Contenu</th>
+        <th>Date</th>
+        <th>Titre article</th>
+    </tr>
+    {%for commentaire in commentaires %}
+        <tr>
+            <td>{{ commentaire.id }}</td>
+            <td>{{ commentaire.author }}</td>
+            <td>{{ commentaire.content }}</td>
+            <td>{{ commentaire.createdAt | date('d/m/Y H:i') }}</td>
+            <td>{{ commentaire.article.title }}</td>
+            <td><a class="btn btn-info" style="color:white" href="{{ path('admin_editCom', {'id':commentaire.id}) }}" role="button" >Modifier</a></td>
+            <td><a class="btn btn-danger" style="color:white" href="{{ path('admin_deleteCom', {'id':commentaire.id}) }} " role="button" >Supprimer</a></td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
