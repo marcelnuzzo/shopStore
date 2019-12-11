@@ -6,14 +6,13 @@
 
         
         <div class="jumbotron" style="background-color:orange">
-            <h1 style ="text-align:center">Modification de : &nbsp<strong>{{ toto.username }}</strong></h1>
+            <h1 style ="text-align:center">Modification de : &nbsp<strong>{{ user.username }}</strong></h1>
         </div>                             
      
         {{ form_start(formUser) }}
 
         {{ form_row(formUser.username, {'attr': {'placeholder': "Nom du user"}}) }}
         {{ form_row(formUser.mail, {'attr': {'placeholder': "Mail du user"}}) }}
-        {{ form_row(formUser.login, {'attr': {'placeholder': "Login du user"}}) }}
         {{ form_row(formUser.password, {'attr': {'placeholder': "Mot de passe du user"}}) }}
         {{ form_row(formUser.confirm_password, {'attr': {'placeholder': "Confirmation du mot de passe"}}) }}
         

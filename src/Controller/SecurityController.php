@@ -87,7 +87,7 @@ class SecurityController extends AbstractController
     public function formUser1(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, User $user = null)
     {
         //$username="";
-        $toto = $this->getUser();
+        $user = $this->getUser();
         //dd($user);
 /*
         $user = $this->getDoctrine()
@@ -96,10 +96,9 @@ class SecurityController extends AbstractController
                         dd($user);
 */
 
-        $form = $this->createFormBuilder($toto)
+        $form = $this->createFormBuilder($user)
                      ->add('username')
                      ->add('mail')
-                     ->add('login')
                      ->add('password', PasswordType::class)
                      ->add('confirm_password', PasswordType::class)
                      ->getForm();
@@ -122,7 +121,7 @@ class SecurityController extends AbstractController
                 return $this->render('security/formUser1.html.twig', [
                     'controller_name' => 'SecurityController',
                     'formUser' => $form->createView(),
-                    'toto' => $toto
+                    'user' => $user
                 ]);
     }
 }

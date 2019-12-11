@@ -166,7 +166,7 @@ class User implements UserInterface
                 $this->id,
                 $this->username,
                 $this->password,
-                $this->confirm_password,
+                //$this->confirm_password,
                 // see section on salt below
                 // $this->salt,
             ]);
@@ -186,7 +186,7 @@ class User implements UserInterface
                 $this->id,
                 $this->username,
                 $this->password,
-                $this->confirm_password,
+                //$this->confirm_password,
                 // see section on salt below
                 // $this->salt
             ) = unserialize($serialized, ['allowed_classes' => false]);
